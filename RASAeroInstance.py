@@ -70,8 +70,11 @@ class RASAeroInstance:
         # Set ignition delay
         self.mainWindow.ToolStrip1.Button8.click_input(double=True)
         self.mainWindow.child_window(title="Motor(s) Loaded Row 0", top_level_only=False).click_input(double=True)
-        self.mainWindow.Flight.FlightDataEntry.type_keys("{TAB 6}{BACKSPACE 2}" + str(ignitionDelay))
-        self.mainWindow.Flight.FlightDataEntry.Save.click_input()
+        tabToIgnitionDelayField = ["tab", "tab", "tab", "tab", "tab", "tab", "backspace", "backspace"]
+        self.__inputKeyboardSequence(tabToIgnitionDelayField)
+        keyboard.write(str(ignitionDelay))
+        self.__repeatKeyboardInput("tab", 6)
+        keyboard.send("enter")
         # Export CSV
         self.mainWindow.child_window(title="ViewData Row 0", top_level_only=False).click_input()
         keyboard.send("alt+f")
