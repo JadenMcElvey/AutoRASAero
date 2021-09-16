@@ -37,19 +37,31 @@ class RASAeroInstance:
         keyboard.write(path)
         keyboard.send("enter")
 
-    def setFinParameters(self, rocketSection, rootChord, span, tipChord, sweepDistance, finThickness):
+    def setFinParameters(self, rocketSection, rootChord, span, tipChord, sweepDistance):
         tubeWindow = self.__getTubeWindow(rocketSection)
-        tubeWindow.type_keys("{ENTER}")
-        clearField = "{BACKSPACE 3}{RIGHT 2}{DELETE 3}{LEFT}"
-        # Change fields
-        tubeWindow.FinsDialog.type_keys("{TAB 3}" + clearField + str(rootChord))
-        tubeWindow.FinsDialog.type_keys("{TAB 2}" + clearField + str(finThickness))
-        tubeWindow.FinsDialog.type_keys("{TAB}" + clearField + str(sweepDistance))
-        tubeWindow.FinsDialog.type_keys("{TAB}" + clearField + str(tipChord))
-        tubeWindow.FinsDialog.type_keys("{TAB}" + clearField + str(span))
-        # Save find parameters and close dialogs
-        tubeWindow.FinsDialog.OK.click_input()
-        tubeWindow.Save.click_input()
+        keyboard.send("enter")
+        clearField = ["backspace", "backspace", "backspace", "right", "right", "delete", "delete", "delete", "left"]
+        # Change root chord
+        self.__repeatKeyboardInput("tab", 3)
+        self.__inputKeyboardSequence(clearField)
+        keyboard.write(str(rootChord))
+        # Change sweep distance
+        self.__repeatKeyboardInput("tab", 3)
+        self.__inputKeyboardSequence(clearField)
+        keyboard.write(str(sweepDistance))
+        # Change tip chord
+        keyboard.send("tab")
+        self.__inputKeyboardSequence(clearField)
+        keyboard.write(str(tipChord))
+        # Change span
+        keyboard.send("tab")
+        self.__inputKeyboardSequence(clearField)
+        keyboard.write(str(span))
+        # Save fin parameters and close dialogs
+        self.__repeatKeyboardInput("shift+tab", 8)
+        keyboard.send("enter")
+        self.__repeatKeyboardInput("tab", 4)
+        keyboard.send("enter")
 
     def setIgnitionDelayAndExportFlightSimData(self, filePath, ignitionDelay):
         # Set ignition delay
@@ -89,3 +101,6 @@ class RASAeroInstance:
         for i in range(repeatNum):
             keyboard.send(keyName)
 
+    def __inputKeyboardSequence(self, sequence):
+        for key in sequence:
+            keyboard.send(key)
