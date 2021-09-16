@@ -1,5 +1,4 @@
 import keyboard
-import time
 
 from pywinauto.application import Application
 from enum import Enum
