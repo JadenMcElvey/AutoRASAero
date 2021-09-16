@@ -21,8 +21,7 @@ class RASAeroInstance:
         # Open File menu
         self.mainWindow.Menu.File.click_input()
         # Scroll to and select Open menu option
-        keyboard.send("down")
-        keyboard.send("down")
+        self.__repeatKeyboardInput("down", 2)
         keyboard.send("enter")
         # Enter path and open file
         keyboard.write(path)
@@ -32,11 +31,7 @@ class RASAeroInstance:
         # Open File menu
         self.mainWindow.Menu.File.click_input()
         # Scroll to and select Open menu option
-        keyboard.send("down")
-        keyboard.send("down")
-        keyboard.send("down")
-        keyboard.send("down")
-        keyboard.send("down")
+        self.__repeatKeyboardInput("down", 5)
         keyboard.send("enter")
         # Enter path and open file
         keyboard.write(path)
@@ -55,18 +50,6 @@ class RASAeroInstance:
         # Save find parameters and close dialogs
         tubeWindow.FinsDialog.OK.click_input()
         tubeWindow.Save.click_input()
-
-    def __getTubeWindow(self, rocketSection):
-        window = None
-
-        if (rocketSection == RocketSection.BodyTube):
-            self.mainWindow.ListBox1.ListItem4.click_input(double=True)
-            window = self.mainWindow.child_window(title="Body Tube", top_level_only=False)
-        elif (rocketSection == RocketSection.Booster):
-            self.mainWindow.ListBox1.ListItem5.click_input(double=True)
-            window = self.mainWindow.child_window(title="Booster", top_level_only=False)
-
-        return window
 
     def setIgnitionDelayAndExportFlightSimData(self, filePath, ignitionDelay):
         # Set ignition delay
@@ -89,3 +72,20 @@ class RASAeroInstance:
         # Return to main window
         keyboard.send("alt+f4")
         keyboard.send("enter")
+
+    def __getTubeWindow(self, rocketSection):
+        window = None
+
+        if (rocketSection == RocketSection.BodyTube):
+            self.mainWindow.ListBox1.ListItem4.click_input(double=True)
+            window = self.mainWindow.child_window(title="Body Tube", top_level_only=False)
+        elif (rocketSection == RocketSection.Booster):
+            self.mainWindow.ListBox1.ListItem5.click_input(double=True)
+            window = self.mainWindow.child_window(title="Booster", top_level_only=False)
+
+        return window
+    
+    def __repeatKeyboardInput(self, keyName, repeatNum):
+        for i in range(repeatNum):
+            keyboard.send(keyName)
+
