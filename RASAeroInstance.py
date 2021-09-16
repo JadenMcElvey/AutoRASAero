@@ -60,7 +60,10 @@ class RASAeroInstance:
         # Save fin parameters and close dialogs
         self.__repeatKeyboardInput("shift+tab", 8)
         keyboard.send("enter")
-        self.__repeatKeyboardInput("tab", 4)
+        if rocketSection == RocketSection.BodyTube:
+            self.__repeatKeyboardInput("tab", 4)
+        else:
+            self.__repeatKeyboardInput("tab", 2)
         keyboard.send("enter")
 
     def setIgnitionDelayAndExportFlightSimData(self, filePath, ignitionDelay):
