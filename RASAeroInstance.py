@@ -18,28 +18,29 @@ class RASAeroInstance:
         self.mainWindow = self.app.RASAero
 
     def loadRocket(self, path):
+        # Open File menu
         self.mainWindow.Menu.File.click_input()
-        #self.mainWindow.type_keys("{DOWN 2}{ENTER}")
+        # Scroll to and select Open menu option
         keyboard.send("down")
         keyboard.send("down")
         keyboard.send("enter")
+        # Enter path and open file
         keyboard.write(path)
         keyboard.send("enter")
-        #self.app.Dialog2.ComboBox.type_keys("{ENTER}")
 
     def loadEngine(self, path):
+        # Open File menu
         self.mainWindow.Menu.File.click_input()
+        # Scroll to and select Open menu option
         keyboard.send("down")
         keyboard.send("down")
         keyboard.send("down")
         keyboard.send("down")
         keyboard.send("down")
         keyboard.send("enter")
-        #self.mainWindow.type_keys("{DOWN 5}{ENTER}")
-        #self.app.Dialog2.ComboBox.Edit5.set_edit_text(path)
+        # Enter path and open file
         keyboard.write(path)
         keyboard.send("enter")
-        #self.app.Dialog2.ComboBox.type_keys("{ENTER}")
 
     def setFinParameters(self, rocketSection, rootChord, span, tipChord, sweepDistance, finThickness):
         tubeWindow = self.__getTubeWindow(rocketSection)
@@ -67,13 +68,14 @@ class RASAeroInstance:
 
         return window
 
-    def exportFlightSimData(self, filePath, ignitionDelay):
+    def setIgnitionDelayAndExportFlightSimData(self, filePath, ignitionDelay):
+        # Set ignition delay
         self.mainWindow.ToolStrip1.Button8.click_input(double=True)
         self.mainWindow.child_window(title="Motor(s) Loaded Row 0", top_level_only=False).click_input(double=True)
         self.mainWindow.Flight.FlightDataEntry.type_keys("{TAB 6}{BACKSPACE 2}" + str(ignitionDelay))
         self.mainWindow.Flight.FlightDataEntry.Save.click_input()
+        # Export CSV
         self.mainWindow.child_window(title="ViewData Row 0", top_level_only=False).click_input()
-        
         keyboard.send("alt+f")
         keyboard.send("enter")
         keyboard.send("enter")
@@ -81,4 +83,9 @@ class RASAeroInstance:
         keyboard.send("enter")
         keyboard.write(filePath)
         keyboard.send("enter")
+        keyboard.send("left")
+        keyboard.send("enter")
         keyboard.send("alt+f4")
+        # Return to main window
+        keyboard.send("alt+f4")
+        keyboard.send("enter")
