@@ -36,8 +36,7 @@ class AutoRASAero:
         sustainerStr = "S_" + "_".join([str(x) for x in sFinParams])
         csvFileName = AutoRASAero.csv_path + "Fin_" + boosterStr + sustainerStr + ".csv"
         AutoRASAero.RASAero.setIgnitionDelayAndExportFlightSimData(csvFileName, ignitionDelay)
-        simResults = self.__parseCSV(csvFileName)
-        print(simResults)
+        return self.__parseCSV(csvFileName)
 
     def __parseCSV(self, csvFileName):
         boosterStartStability, sustainerStartStability = None, None
@@ -48,7 +47,6 @@ class AutoRASAero:
         csvFile = pathlib.Path(csvFileName)
         while not csvFile.is_file():
             time.sleep(1)
-            i += 1
         time.sleep(1)
         
         reader = csv.reader(open(csvFileName))
@@ -72,9 +70,4 @@ class AutoRASAero:
             globalMaxStability = stabilityMargin if stabilityMargin > globalMaxStability else globalMaxStability
             globalMinStability = stabilityMargin if (stabilityMargin != 0) and (stabilityMargin < globalMinStability) else globalMinStability
 
-        #finParamStr = "Root chord:" + str(finParams[0][0]) + " Span:" + str(finParams[0][1]) + " Tip Chord:" + str(finParams[0][2]) + " Sweep Distance:" + str(finParams[0][3])
-        finStabilityStr = "\nB(0):" + str(boosterStartStability) + " B(end):" + str(boosterEndStability)
-        finStabilityStr += "\nS(0):" + str(sustainerStartStability) + " S(max):" + str(sustainerMaxStability)
-        finStabilityStr += "\nGlobal Min:" + str(globalMinStability) + " Global Max:" + str(globalMinStability)
-        print(finStabilityStr)
         return (boosterStartStability, boosterEndStability, sustainerStartStability, sustainerMaxStability, globalMinStability, globalMaxStability)
