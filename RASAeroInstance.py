@@ -4,7 +4,7 @@ from pywinauto.application import Application
 from enum import Enum
 
 class RocketSection(Enum):
-    BodyTube = 0
+    Sustainer = 0
     Booster = 1
 
 class RASAeroInstance:
@@ -59,7 +59,7 @@ class RASAeroInstance:
         # Save fin parameters and close dialogs
         self.__repeatKeyboardInput("shift+tab", 8)
         keyboard.send("enter")
-        if rocketSection == RocketSection.BodyTube:
+        if rocketSection == RocketSection.Sustainer:
             self.__repeatKeyboardInput("tab", 4)
         else:
             self.__repeatKeyboardInput("tab", 2)
@@ -93,7 +93,7 @@ class RASAeroInstance:
     def __getTubeWindow(self, rocketSection):
         window = None
 
-        if (rocketSection == RocketSection.BodyTube):
+        if (rocketSection == RocketSection.Sustainer):
             self.mainWindow.ListBox1.ListItem4.click_input(double=True)
             window = self.mainWindow.child_window(title="Body Tube", top_level_only=False)
         elif (rocketSection == RocketSection.Booster):
