@@ -1,0 +1,2 @@
+This is the location that RASAero exports fin csv files. Each file will have a name in the form of:
+`Fin_B_<booster root chord>_<booster span>_<booster tip chord>_<booster sweep>_S_<sustainer root chord>_<sustainer span>_<sustainer tip chord>_<sustainer sweep>`
