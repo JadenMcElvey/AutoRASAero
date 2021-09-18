@@ -1,4 +1,6 @@
 import keyboard
+import pywinauto
+import time
 
 from pywinauto.application import Application
 from enum import Enum
@@ -76,6 +78,9 @@ class RASAeroInstance:
         keyboard.send("enter")
         # Export CSV
         self.mainWindow.child_window(title="ViewData Row 0", top_level_only=False).click_input()
+        # Close instability warnings until the flight sim data window is open
+        while not self.mainWindow.Flight.Flight.exists():
+            keyboard.send("alt+f4")
         keyboard.send("alt+f")
         keyboard.send("enter")
         keyboard.send("enter")
