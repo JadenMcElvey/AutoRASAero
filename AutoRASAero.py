@@ -33,7 +33,7 @@ class AutoRASAero:
         AutoRASAero.RASAero.setFinParameters(RASAeroInstance.RocketSection.Sustainer, sFinParams[0], sFinParams[1], sFinParams[2], sFinParams[3])
         AutoRASAero.RASAero.setFinParameters(RASAeroInstance.RocketSection.Booster, bFinParams[0], bFinParams[1], bFinParams[2], bFinParams[3])
         boosterStr = "B_" + "_".join([str(x) for x in bFinParams])
-        sustainerStr = "S_" + "_".join([str(x) for x in sFinParams])
+        sustainerStr = "_S_" + "_".join([str(x) for x in sFinParams])
         csvFileName = AutoRASAero.csv_path + "Fin_" + boosterStr + sustainerStr + ".csv"
         AutoRASAero.RASAero.setIgnitionDelayAndExportFlightSimData(csvFileName, ignitionDelay)
         return self.__parseCSV(csvFileName)
