@@ -35,8 +35,10 @@ class AutoRASAero:
         boosterStr = "B_" + "_".join([str(x) for x in bFinParams])
         sustainerStr = "_S_" + "_".join([str(x) for x in sFinParams])
         csvFileName = AutoRASAero.csv_path + "Fin_" + boosterStr + sustainerStr + ".csv"
-        AutoRASAero.RASAero.setIgnitionDelayAndExportFlightSimData(csvFileName, ignitionDelay)
-        return self.__parseCSV(csvFileName)
+        if AutoRASAero.RASAero.setIgnitionDelayAndExportFlightSimData(csvFileName, ignitionDelay):
+            return self.__parseCSV(csvFileName)
+        else:
+            return (-1,-1,-1,-1,-1,-1)
 
     def __parseCSV(self, csvFileName):
         boosterStartStability, sustainerStartStability = None, None
@@ -47,7 +49,7 @@ class AutoRASAero:
         csvFile = pathlib.Path(csvFileName)
         while not csvFile.is_file():
             time.sleep(1)
-        time.sleep(1)
+        time.sleep(3)
         
         reader = csv.reader(open(csvFileName))
         next(reader)

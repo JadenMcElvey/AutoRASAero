@@ -76,24 +76,30 @@ class RASAeroInstance:
         keyboard.write(str(ignitionDelay))
         self.__repeatKeyboardInput("tab", 6)
         keyboard.send("enter")
-        # Export CSV
-        self.mainWindow.child_window(title="ViewData Row 0", top_level_only=False).click_input()
-        # Close instability warnings until the flight sim data window is open
-        while not self.mainWindow.Flight.Flight.exists():
+        # Verify sim completed
+        if self.__verifySimCompletion():
+            # Export CSV
+            self.mainWindow.child_window(title="ViewData Row 0", top_level_only=False).click_input()
+            keyboard.send("alt+f")
+            keyboard.send("enter")
+            keyboard.send("enter")
+            keyboard.send("tab")
+            keyboard.send("enter")
+            keyboard.write(filePath)
+            keyboard.send("enter")
+            keyboard.send("left")
+            keyboard.send("enter")
             keyboard.send("alt+f4")
-        keyboard.send("alt+f")
-        keyboard.send("enter")
-        keyboard.send("enter")
-        keyboard.send("tab")
-        keyboard.send("enter")
-        keyboard.write(filePath)
-        keyboard.send("enter")
-        keyboard.send("left")
-        keyboard.send("enter")
-        keyboard.send("alt+f4")
-        # Return to main window
-        keyboard.send("alt+f4")
-        keyboard.send("enter")
+            # Return to main window
+            keyboard.send("alt+f4")
+            keyboard.send("enter")
+            print("all good")
+            return True
+        else:
+            keyboard.send("alt+f4")
+            keyboard.send("enter")
+            print("bad")
+            return False
 
     def __getTubeWindow(self, rocketSection):
         window = None
@@ -106,6 +112,20 @@ class RASAeroInstance:
             window = self.mainWindow.child_window(title="Booster", top_level_only=False)
 
         return window
+
+    def __verifySimCompletion(self):
+        valid = True
+        keyboard.send("alt+f")
+        keyboard.send("right")
+        keyboard.send("down")
+        keyboard.send("down")
+        keyboard.send("enter")
+        if self.mainWindow.Flight.UnstableDialog.exists():
+            valid = False
+            keyboard.send("alt+f4")
+            keyboard.send("alt+f4")
+        return valid
+
     
     def __repeatKeyboardInput(self, keyName, repeatNum):
         for i in range(repeatNum):
