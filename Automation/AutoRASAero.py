@@ -1,4 +1,4 @@
-import RASAeroInstance
+import Automation.RASAeroInstance as RASAeroInstance
 import pathlib
 import time
 import csv

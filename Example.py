@@ -1,6 +1,6 @@
 import pathlib
 
-from AutoRASAero import AutoRASAero
+from Automation.AutoRASAero import AutoRASAero
 
 # Get paths for rocket files and where to save the csv
 cwd = str(pathlib.Path.cwd())
