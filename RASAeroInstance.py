@@ -120,7 +120,7 @@ class RASAeroInstance:
         keyboard.send("down")
         keyboard.send("down")
         keyboard.send("enter")
-        if self.mainWindow.Flight.UnstableDialog.exists():
+        if self.mainWindow.Flight.UnstableDialog.exists() or self.mainWindow.Flight.Marginal.exists():
             valid = False
             keyboard.send("alt+f4")
             keyboard.send("alt+f4")
