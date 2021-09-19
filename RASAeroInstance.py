@@ -93,12 +93,10 @@ class RASAeroInstance:
             # Return to main window
             keyboard.send("alt+f4")
             keyboard.send("enter")
-            print("all good")
             return True
         else:
             keyboard.send("alt+f4")
             keyboard.send("enter")
-            print("bad")
             return False
 
     def __getTubeWindow(self, rocketSection):
