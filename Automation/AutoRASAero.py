@@ -38,25 +38,27 @@ class AutoRASAero:
         if AutoRASAero.RASAero.setIgnitionDelayAndExportFlightSimData(csvFileName, ignitionDelay):
             return self.__parseCSV(csvFileName)
         else:
-            return (-1,-1,-1,-1,-1,-1)
+            return None
 
     def __parseCSV(self, csvFileName):
         boosterStartStability, sustainerStartStability = None, None
         boosterEndStability, sustainerMaxStability = 0, 0
         globalMaxStability = 0
         globalMinStability = float("inf")
+        apogee = 0
 
         csvFile = pathlib.Path(csvFileName)
         while not csvFile.is_file():
             time.sleep(1)
         time.sleep(3)
-        
+
         reader = csv.reader(open(csvFileName))
         next(reader)
 
         for row in reader:
             stage = row[1]
             stabilityMargin = float(row[13])
+            altitude = float(row[22])
 
             if stage == "B":
                 if boosterStartStability == None:
@@ -71,5 +73,6 @@ class AutoRASAero:
 
             globalMaxStability = stabilityMargin if stabilityMargin > globalMaxStability else globalMaxStability
             globalMinStability = stabilityMargin if (stabilityMargin != 0) and (stabilityMargin < globalMinStability) else globalMinStability
+            apogee = altitude if apogee < altitude else apogee
 
-        return (boosterStartStability, boosterEndStability, sustainerStartStability, sustainerMaxStability, globalMinStability, globalMaxStability)
+        return (boosterStartStability, boosterEndStability, sustainerStartStability, sustainerMaxStability, globalMinStability, globalMaxStability, apogee)
