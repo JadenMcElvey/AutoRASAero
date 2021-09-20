@@ -19,3 +19,5 @@ finSim.startupRASAero()
 # run the simulation and print the output
 result = finSim.runSimulation(finParams[0], finParams[0], 6)
 print(result)
+# Close RASAero
+finSim.closeRASAero()

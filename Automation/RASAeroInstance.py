@@ -18,6 +18,13 @@ class RASAeroInstance:
         self.app = Application(backend="uia").start("C:\Program Files (x86)\RASAero II\RASAero II.exe")
         self.mainWindow = self.app.RASAero
 
+    def close(self):
+        keyboard.send("alt+f4")
+        keyboard.send("right")
+        keyboard.send("enter")
+        self.app = None
+        self.mainWindow = None
+
     def loadRocket(self, path):
         # Open File menu
         self.mainWindow.Menu.File.click_input()

@@ -29,6 +29,9 @@ class AutoRASAero:
         AutoRASAero.RASAero.loadRocket(AutoRASAero.cdx1_file)
         AutoRASAero.RASAero.loadEngine(AutoRASAero.eng_file)
 
+    def closeRASAero(self):
+        AutoRASAero.RASAero.close()
+
     def runSimulation(self, bFinParams, sFinParams, ignitionDelay):
         AutoRASAero.RASAero.setFinParameters(RASAeroInstance.RocketSection.Sustainer, sFinParams[0], sFinParams[1], sFinParams[2], sFinParams[3])
         AutoRASAero.RASAero.setFinParameters(RASAeroInstance.RocketSection.Booster, bFinParams[0], bFinParams[1], bFinParams[2], bFinParams[3])
