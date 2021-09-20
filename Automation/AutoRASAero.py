@@ -57,9 +57,12 @@ class AutoRASAero:
         next(reader)
 
         for row in reader:
-            stage = row[1]
-            stabilityMargin = float(row[13])
-            altitude = float(row[22])
+            try:
+                stage = row[1]
+                stabilityMargin = float(row[13])
+                altitude = float(row[22])
+            except IndexError:
+                continue
 
             if stage == "B":
                 if boosterStartStability == None:
