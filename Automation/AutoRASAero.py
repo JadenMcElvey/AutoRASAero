@@ -52,7 +52,8 @@ class AutoRASAero:
             time.sleep(1)
         time.sleep(3)
 
-        reader = csv.reader(open(csvFileName))
+        file = open(csvFileName)
+        reader = csv.reader(file)
         next(reader)
 
         for row in reader:
@@ -75,4 +76,5 @@ class AutoRASAero:
             globalMinStability = stabilityMargin if (stabilityMargin != 0) and (stabilityMargin < globalMinStability) else globalMinStability
             apogee = altitude if apogee < altitude else apogee
 
+        file.close()
         return (boosterStartStability, boosterEndStability, sustainerStartStability, sustainerMaxStability, globalMinStability, globalMaxStability, apogee)
