@@ -13,10 +13,24 @@ class RASAeroInstance:
         self.mainWindow = None
 
     def start(self):
+        """
+        Open an instance of RASAero
+        
+            Parameters:
+                
+            Returns:
+        """
         self.app = Application(backend="uia").start("C:\Program Files (x86)\RASAero II\RASAero II.exe")
         self.mainWindow = self.app.RASAero
 
     def close(self):
+        """
+        Close an instance of RASAero previously opened in the start() function
+        
+            Parameters:
+                
+            Returns:
+        """
         keyboard.send("alt+f4")
         keyboard.send("right")
         keyboard.send("enter")
@@ -24,6 +38,14 @@ class RASAeroInstance:
         self.mainWindow = None
 
     def loadRocket(self, path):
+        """
+        Open the specified rocket file in RASAero
+        
+            Parameters:
+                path (string): path to the rocket file
+                
+            Returns:
+        """
         # Open File menu
         self.mainWindow.Menu.File.click_input()
         # Scroll to and select Open menu option
@@ -34,6 +56,14 @@ class RASAeroInstance:
         keyboard.send("enter")
 
     def loadEngine(self, path):
+        """
+        Open the specified engine file in RASAero
+        
+            Parameters:
+                path (string): path to the engine file
+                
+            Returns:
+        """
         # Open File menu
         self.mainWindow.Menu.File.click_input()
         # Scroll to and select Open menu option
@@ -44,6 +74,18 @@ class RASAeroInstance:
         keyboard.send("enter")
 
     def setFinParameters(self, rocketSection, rootChord, span, tipChord, sweepDistance):
+        """
+        Set the root chord, span, tip chord, and sweep distance of the specified rocket section
+        
+            Parameters:
+                rocketSection (RocketSection): the rocket section attatched to the fins
+                rootChord (float): the root chord of the fin
+                span (float): the span of the fin
+                tipChord (float): the tip chord of the fin
+                sweepDistance (float): the sweep distance of the fin
+                
+            Returns:
+        """
         tubeWindow = self.__getTubeWindow(rocketSection)
         keyboard.send("enter")
         clearField = ["backspace", "backspace", "backspace", "right", "right", "delete", "delete", "delete", "left"]
@@ -73,6 +115,16 @@ class RASAeroInstance:
         keyboard.send("enter")
 
     def setIgnitionDelayAndExportFlightSimData(self, filePath, ignitionDelay):
+        """
+        Set the ignition delay then export to csv and return to the main window
+        
+            Parameters:
+                filePath (string): the file path including directory, file name, and extension
+                ignitionDelay (string): the ignition delay of the simulation
+                
+            Returns:
+                True if successful and False on failure to run the flight sim
+        """
         # Set ignition delay
         self.mainWindow.ToolStrip1.Button8.click_input(double=True)
         self.mainWindow.child_window(title="Motor(s) Loaded Row 0", top_level_only=False).click_input(double=True)

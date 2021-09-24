@@ -19,20 +19,59 @@ class AutoRASAero:
         AutoRASAero.instanceNum -= 1
 
     def setPaths(self, cdx1Path, engPath, csvPath):
+        """
+        Specify the paths to find the rocket, find the engine files, and save the csv output 
+        
+            Parameters:
+                cdx1Path (string) : the path to the rocket file
+                engPath (string) : the path to the engine file
+                csvPath (string) : the directory to save the csvPath in
+        """
         AutoRASAero.cdx1_file = cdx1Path
         AutoRASAero.eng_file = engPath
         AutoRASAero.csv_path = csvPath
 
     def startupRASAero(self):
+        """
+        Create a RASAeroInstance to automatically run simulation
+        
+            Parameters:
+                
+            Returns:
+        """
         AutoRASAero.RASAero = RASAeroInstance.RASAeroInstance()
         AutoRASAero.RASAero.start()
         AutoRASAero.RASAero.loadRocket(AutoRASAero.cdx1_file)
         AutoRASAero.RASAero.loadEngine(AutoRASAero.eng_file)
 
     def closeRASAero(self):
+        """
+        Close a RASAeroInstance created with the startupRASAero() function
+        
+            Parameters:
+                
+            Returns:
+        """
         AutoRASAero.RASAero.close()
 
     def runSimulation(self, bFinParams, sFinParams, ignitionDelay):
+        """
+        Run a simulation with the specified parameters and output the simulation results in the 
+        previously specified csvPath
+        
+            Parameters:
+                bFinParams [] : A list of floats representing the parameters for the fins on the 
+                    booster in the following form [root chord, span, tip chord, sweep]
+                sFinParams [] : A list of floats representing the parameters for the fins on the
+                    sustainer in the following form [root chord, span, tip chord, sweep]
+                ignitionDelay (float) : A float representing the ignition delay
+                
+            Returns:
+                A tuple containing the flight sim results of the form (booster start stability, 
+                booster end stability, sustainer start stability, sustainer max stability, 
+                global min stability, global max stability, apogee) or None if the flight simulation
+                fails 
+        """
         AutoRASAero.RASAero.setFinParameters(RASAeroInstance.RocketSection.Sustainer, sFinParams[0], sFinParams[1], sFinParams[2], sFinParams[3])
         AutoRASAero.RASAero.setFinParameters(RASAeroInstance.RocketSection.Booster, bFinParams[0], bFinParams[1], bFinParams[2], bFinParams[3])
         boosterStr = "B_" + "_".join([str(x) for x in bFinParams])
