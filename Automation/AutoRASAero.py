@@ -103,7 +103,7 @@ class AutoRASAero:
                 stage = row[1]
                 stabilityMargin = float(row[13])
                 altitude = float(row[22])
-            except IndexError:
+            except (IndexError, ValueError):
                 continue
 
             if stage == "B":
