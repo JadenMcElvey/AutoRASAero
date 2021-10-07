@@ -51,10 +51,10 @@ letters = [char for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
 
 class finCandidate:
     
-    rootChordRange = (8, 16)
-    spanRange = (6, 8)
-    tipChordRange = (1, 9)
-    sweepRange = (4, 12)
+    rootChordRange = (6, 14)
+    spanRange = (4, 8)
+    tipChordRange = (3, 6)
+    sweepRange = (3, 9)
     ignitionDelayRange = (4, 30)
     
     normScale = 2
@@ -239,7 +239,7 @@ allGenerations = []
 allGenerations.append(gen)
 lastGen = gen
 newGen = []
-for i in range(60):
+for i in range(40):
     letterIndex = 0
     for candidateIndex1 in range(5):
         for candidateIndex2 in range(candidateIndex1+1, 5):
