@@ -20,7 +20,7 @@ finSim.setPaths(CDX1_FILE, ENG_FILE, csvPath)
 # Start RASAero
 finSim.startupRASAero()
 # run the simulation and print the output
-result = finSim.runSimulation(finParams[0], finParams[1], 6)
+result = finSim.runStabilitySimulation(finParams[0], finParams[1], 6)
 print(result)
 # Close RASAero
 finSim.closeRASAero()

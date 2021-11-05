@@ -3,17 +3,17 @@
 
 # # Fin Optimization Using a Genetic Algorithm
 
-# **THIS NOTEBOOK IS IDENTICAL TO THE ORIGINAL EXCEPT THAT THE BOOSTER AND SUSTAINER FIN PARAMETERS ARE CHANGED INDEPENDENTLY FOR EACH FIN CANDIDATE**
-# ## Intro
-# The goal of this notebook is to optimize fin parameters and ignition delay by using a genetic algorithm. A [genetic algorithm](https://en.wikipedia.org/wiki/Genetic_algorithm) is an algorithmic approach to optimization based largely on the concept of natural selection. The algorithm creates sets of solutions, called generations, and uses the quality of those solutions to inform new candidate solutions. At a high level the steps of the algorithm are as follows.
-# 1. Create the first generation by randomly generating a set of candidate solutions
-# 2. Evaluate the fitness of all solutions in the generation
-# 3. Create the new generation  
-#     a. Create offspring candidates by crossing the parameters of previously good solutions  
-#     b. Create more solutions by mutating the offspring candidates  
+# **THIS NOTEBOOK IS IDENTICAL TO THE ORIGINAL EXCEPT THAT THE BOOSTER AND SUSTAINER FIN PARAMETERS ARE CHANGED INDEPENDENTLY FOR EACH FIN CANDIDATE**
+# ## Intro
+# The goal of this notebook is to optimize fin parameters and ignition delay by using a genetic algorithm. A [genetic algorithm](https://en.wikipedia.org/wiki/Genetic_algorithm) is an algorithmic approach to optimization based largely on the concept of natural selection. The algorithm creates sets of solutions, called generations, and uses the quality of those solutions to inform new candidate solutions. At a high level the steps of the algorithm are as follows.
+# 1. Create the first generation by randomly generating a set of candidate solutions
+# 2. Evaluate the fitness of all solutions in the generation
+# 3. Create the new generation  
+#     a. Create offspring candidates by crossing the parameters of previously good solutions  
+#     b. Create more solutions by mutating the offspring candidates  
 # 4. Repeat steps 2 and 3 for multiple generations to continue optimizing
 
-# ## Setup
+# ## Setup
 # Begin by importing the necessary libraries. Scypi and Numpy are used to create mutated parameters along a truncated normal distribution. Pathlib and Sys are used to deal with file paths and import the RASAero automation code. CSV is used to write the output to a csv file for later analysis in excel.
 
 # In[ ]:
@@ -39,11 +39,11 @@ import csv
 letters = [char for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
 
 
-# ## Defining a Fin Candidate
-# A fin candidate is a set of fin dimensions and ignition delay values. Each fin candidate is a possible solution that is evaluated based on its stability and apogee. Most of the code in this class just stores values and provides functions to easily create new candidate solutions.
-# ### Crossover and Mutation
-# The hallmarks of a genetic algorithm is the use of crossover and mutation techniques. For fin candidates crossover is achieved by taking two parent candidates and averaging the values of each parameter. Mutation is achieved by taking another candidate and randomly sampling from a normal distribution(truncated within valid ranges) centered on the parameters of the parent. This means that it is likely that the mutated parameter will be similar to the parameter of the parent but it is also possible that mutated parameters may differ greatly from that of the "parent".
-# ### Fitness
+# ## Defining a Fin Candidate
+# A fin candidate is a set of fin dimensions and ignition delay values. Each fin candidate is a possible solution that is evaluated based on its stability and apogee. Most of the code in this class just stores values and provides functions to easily create new candidate solutions.
+# ### Crossover and Mutation
+# The hallmarks of a genetic algorithm is the use of crossover and mutation techniques. For fin candidates crossover is achieved by taking two parent candidates and averaging the values of each parameter. Mutation is achieved by taking another candidate and randomly sampling from a normal distribution(truncated within valid ranges) centered on the parameters of the parent. This means that it is likely that the mutated parameter will be similar to the parameter of the parent but it is also possible that mutated parameters may differ greatly from that of the "parent".
+# ### Fitness
 # The most important function in this class is fitness function. The fitness function is the crux of the genetic algorithm. A higher value from the fitness function indicates a better quality solution to the algorithm. A bad fitness function will result in an algorithm that does not optimize solutions. Here the goal is to optimize apogee within the bounds of acceptable stability. To that end the fitness function is as follows. Any candidate solution that results in a global minimum stability below 2 is considered unfit for flight and has a fitness of zero. For candidate solutions with minimum stability over this threshold the fitness is equal to the apogee, with one exception. A maximum global stability over 6 is considered potentially over stable and applies a penalty to the fitness function of 1% per tenth over 6. For instance a maximum stability margin of 6.5 applies a 5% penalty to the apogee when calculating fitness. This function will hopefully optimize the parameters for apogee with appropriate incentives for maintaining stability, but only time will tell.
 
 # In[ ]:
@@ -52,7 +52,7 @@ letters = [char for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
 class finCandidate:
     
     rootChordRange = (6, 14)
-    spanRange = (4, 8)
+    spanRange = (6, 6.01)
     tipChordRange = (3, 6)
     sweepRange = (3, 9)
     ignitionDelayRange = (4, 30)
@@ -76,15 +76,22 @@ class finCandidate:
         return genStr + fitnessStr + bParamStr + sParamStr + iDelayStr
     
     def toCSV(self):
-        #TODO just return a list instead of splitting a string
-        genStr = "Fin-" + str(candidate.gen) + "-" + candidate.genID + ","
-        fitnessStr = str(round(candidate.fitness())) + ","
-        bParamStr = ",".join(str(x) for x in candidate.bParams) + ","
-        sParamStr = ",".join(str(x) for x in candidate.sParams) + ","
-        ignitionDelayStr = str(candidate.ignitionDelay) + ","
-        resultStr = ",".join(str(x) for x in candidate.results)
-        csvString = genStr + fitnessStr + bParamStr + sParamStr + ignitionDelayStr + resultStr
-        return csvString.split(",")
+        csvList = []
+
+        # Append generation string
+        csvList.append("Fin-" + str(candidate.gen) + "-" + candidate.genID)
+        # Append fitness
+        csvList.append(str(round(candidate.fitness())))
+        # Append booster parameters
+        csvList.extend(str(x) for x in candidate.bParams)
+        # Append sustainer parameters
+        csvList.extend(str(x) for x in candidate.sParams)
+        # Append ignition delay
+        csvList.append(str(candidate.ignitionDelay))
+        # Append results
+        csvList.extend(str(x) for x in candidate.results)
+
+        return csvList
         
     def __lt__(self, other):
         return self.fitness() < other.fitness()
@@ -170,8 +177,8 @@ class finCandidate:
         return mutatedParam[0]
 
 
-# ## Creating Generation Zero
-# 
+# ## Creating Generation Zero
+# 
 # Generation zero will be the first generation for the genetic algorithm. All the candidates in generation zero are created by randomly sampling parameters from a uniform distribution.
 
 # In[ ]:
@@ -206,7 +213,7 @@ while len(gen) < 20:
         gen[letterIndex].setGenID(letters[letterIndex])
 
 
-# ## Iteration
+# ## Iteration
 # Now evaluate the fitness of generation zero and create new generations via crossover and mutation. Store each generation in the allGenerations list for later.
 
 # In[ ]:
@@ -227,7 +234,7 @@ finSim.setPaths(CDX1_FILE, ENG_FILE, csvPath)
 for candidate in gen:
     finSim.startupRASAero()
     boosterFinParams, sustainerFinParams = candidate.getFinParameters()
-    candidate.results = finSim.runSimulation(boosterFinParams, sustainerFinParams, candidate.getIgnitionDelay())
+    candidate.results = finSim.runStabilitySimulation(boosterFinParams, sustainerFinParams, candidate.getIgnitionDelay())
     finSim.closeRASAero()
 
 # Output the best of gen zero
@@ -239,7 +246,7 @@ allGenerations = []
 allGenerations.append(gen)
 lastGen = gen
 newGen = []
-for i in range(40):
+for i in range(55):
     letterIndex = 0
     for candidateIndex1 in range(5):
         for candidateIndex2 in range(candidateIndex1+1, 5):
@@ -264,7 +271,7 @@ for i in range(40):
             try:
                 finSim.startupRASAero()
                 boosterFinParams, sustainerFinParams = candidate.getFinParameters()
-                candidate.results = finSim.runSimulation(boosterFinParams, sustainerFinParams, candidate.getIgnitionDelay())
+                candidate.results = finSim.runStabilitySimulation(boosterFinParams, sustainerFinParams, candidate.getIgnitionDelay())
                 finSim.closeRASAero()
                 successfulSim = True
             except (TimeoutError, pywinauto.ElementNotFoundError):
@@ -280,7 +287,7 @@ for i in range(40):
 print("Done!")
 
 
-# ## Output
+# ## Output
 # Create a new csv file and write the parameter and simulation results of each fin to this file.
 
 # In[ ]:
@@ -301,7 +308,7 @@ for candidate in flatAllGenerations:
 outputFile.close()
 
 
-# ## Continued Iteration
+# ## Continued Iteration
 # If you want to run more iterations run the block below. Then scroll back up and output the new values to csv.
 
 # In[ ]:
@@ -334,7 +341,7 @@ for i in range(1):
             try:
                 finSim.startupRASAero()
                 boosterFinParams, sustainerFinParams = candidate.getFinParameters()
-                candidate.results = finSim.runSimulation(boosterFinParams, sustainerFinParams, candidate.getIgnitionDelay())
+                candidate.results = finSim.runStabilitySimulation(boosterFinParams, sustainerFinParams, candidate.getIgnitionDelay())
                 finSim.closeRASAero()
                 successfulSim = True
             except (TimeoutError, pywinauto.ElementNotFoundError):

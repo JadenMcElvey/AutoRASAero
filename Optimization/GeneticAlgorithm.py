@@ -37,11 +37,11 @@ import csv
 letters = [char for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
 
 
-# ## Defining a Fin Candidate
-# A fin candidate is a set of fin dimensions and ignition delay values. Each fin candidate is a possible solution that is evaluated based on its stability and apogee. Most of the code in this class just stores values and provides functions to easily create new candidate solutions.
-# ### Crossover and Mutation
-# The hallmarks of a genetic algorithm is the use of crossover and mutation techniques. For fin candidates crossover is achieved by taking two parent candidates and averaging the values of each parameter. Mutation is achieved by taking another candidate and randomly sampling from a normal distribution(truncated within valid ranges) centered on the parameters of the parent. This means that it is likely that the mutated parameter will be similar to the parameter of the parent but it is also possible that mutated parameters may differ greatly from that of the "parent".
-# ### Fitness
+# ## Defining a Fin Candidate
+# A fin candidate is a set of fin dimensions and ignition delay values. Each fin candidate is a possible solution that is evaluated based on its stability and apogee. Most of the code in this class just stores values and provides functions to easily create new candidate solutions.
+# ### Crossover and Mutation
+# The hallmarks of a genetic algorithm is the use of crossover and mutation techniques. For fin candidates crossover is achieved by taking two parent candidates and averaging the values of each parameter. Mutation is achieved by taking another candidate and randomly sampling from a normal distribution(truncated within valid ranges) centered on the parameters of the parent. This means that it is likely that the mutated parameter will be similar to the parameter of the parent but it is also possible that mutated parameters may differ greatly from that of the "parent".
+# ### Fitness
 # The most important function in this class is fitness function. The fitness function is the crux of the genetic algorithm. A higher value from the fitness function indicates a better quality solution to the algorithm. A bad fitness function will result in an algorithm that does not optimize solutions. Here the goal is to optimize apogee within the bounds of acceptable stability. To that end the fitness function is as follows. Any candidate solution that results in a global minimum stability below 2 is considered unfit for flight and has a fitness of zero. For candidate solutions with minimum stability over this threshold the fitness is equal to the apogee, with one exception. A maximum global stability over 6 is considered potentially over stable and applies a penalty to the fitness function of 1% per tenth over 6. For instance a maximum stability margin of 6.5 applies a 5% penalty to the apogee when calculating fitness. This function will hopefully optimize the parameters for apogee with appropriate incentives for maintaining stability, but only time will tell.
 
 # In[ ]:
@@ -204,7 +204,7 @@ finSim.setPaths(CDX1_FILE, ENG_FILE, csvPath)
 for candidate in gen:
     finSim.startupRASAero()
     finParams = candidate.getFinParameters()
-    candidate.results = finSim.runSimulation(finParams, finParams, candidate.getIgnitionDelay())
+    candidate.results = finSim.runStabilitySimulation(finParams, finParams, candidate.getIgnitionDelay())
     finSim.closeRASAero()
 
 # Output the best of gen zero
@@ -238,7 +238,7 @@ for i in range(2):
     for candidate in newGen:
         finSim.startupRASAero()
         finParams = candidate.getFinParameters()
-        candidate.results = finSim.runSimulation(finParams, finParams, candidate.getIgnitionDelay())
+        candidate.results = finSim.runStabilitySimulation(finParams, finParams, candidate.getIgnitionDelay())
         finSim.closeRASAero()
 
     # Output best of this gen and update lastGen
@@ -303,7 +303,7 @@ for i in range(8):
     for candidate in newGen:
         finSim.startupRASAero()
         finParams = candidate.getFinParameters()
-        candidate.results = finSim.runSimulation(finParams, finParams, candidate.getIgnitionDelay())
+        candidate.results = finSim.runStabilitySimulation(finParams, finParams, candidate.getIgnitionDelay())
         finSim.closeRASAero()
 
     # Output best of this gen and update lastGen

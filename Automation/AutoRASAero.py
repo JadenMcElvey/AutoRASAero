@@ -54,7 +54,7 @@ class AutoRASAero:
         """
         AutoRASAero.RASAero.close()
 
-    def runSimulation(self, bFinParams, sFinParams, ignitionDelay):
+    def runStabilitySimulation(self, bFinParams, sFinParams, ignitionDelay):
         """
         Run a simulation with the specified parameters and output the simulation results in the 
         previously specified csvPath
