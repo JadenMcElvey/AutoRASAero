@@ -78,11 +78,62 @@ class AutoRASAero:
         sustainerStr = "_S_" + "_".join([str(x) for x in sFinParams])
         csvFileName = AutoRASAero.csv_path + "Fin_" + boosterStr + sustainerStr + ".csv"
         if AutoRASAero.RASAero.setIgnitionDelayAndExportFlightSimData(csvFileName, ignitionDelay):
-            return self.__parseCSV(csvFileName)
+            return self.__parseStabilityCSV(csvFileName)
         else:
             return None
 
-    def __parseCSV(self, csvFileName):
+    def runCDSimulations(self, bodyDiameter, bParams, sParams):
+        # Set Parameters
+        AutoRASAero.RASAero.setBodyDiameter(bodyDiameter)
+        AutoRASAero.RASAero.setTubeParameters(RASAeroInstance.RocketSection.Sustainer, sParams[0], sParams[1], sParams[2], sParams[3], sParams[4])
+        time.sleep(5)
+        AutoRASAero.RASAero.setTubeParameters(RASAeroInstance.RocketSection.Booster, bParams[0], bParams[1], bParams[2], bParams[3], bParams[4])
+        time.sleep(5)
+
+        # Output Sustainer Only Info(and wait for completion)
+        sustainerStr = "S_" + "_".join([str(x) for x in sParams])
+        ScsvFileName = AutoRASAero.csv_path + "CD_" + sustainerStr + ".csv"
+        AutoRASAero.RASAero.exportAeroPlot(ScsvFileName, True)
+        time.sleep(5)
+
+        # Output Sustainer+Booster Info(and wait for completion)
+        boosterStr = "B_" + "_".join([str(x) for x in bParams])
+        sustainerStr = "_S_" + "_".join([str(x) for x in sParams])
+        SBcsvFileName = AutoRASAero.csv_path + "CD_" + boosterStr + sustainerStr + ".csv"
+        AutoRASAero.RASAero.exportAeroPlot(SBcsvFileName, False)
+        time.sleep(5)
+        
+        # Read Exported CSV
+        SCDPOff, SCDPOn = self.__parseCDCSV(ScsvFileName)
+        SBCDPOff, SBCDPOn = self.__parseCDCSV(SBcsvFileName)
+
+        return (SCDPOff, SCDPOn, SBCDPOff, SBCDPOn)
+
+    def getCDforMachValue(self, CDList, machValue):
+        roundedMachValue = round(machValue, 2)
+        CDIndex = int((roundedMachValue * 100) - 1)
+        return CDList[CDIndex]
+
+    def __parseCDCSV(self, csvFileName):
+        CDPOff = []
+        CDPOn = []
+
+        csvFile = pathlib.Path(csvFileName)
+        while not csvFile.is_file():
+            time.sleep(1)
+        time.sleep(3)
+
+        file = open(csvFileName)
+        reader = csv.reader(file)
+        next(reader)
+
+        for row in reader:
+            CDPOff.append(row[3])
+            CDPOn.append(row[4])
+
+        return CDPOff, CDPOn
+
+    def __parseStabilityCSV(self, csvFileName):
         boosterStartStability, sustainerStartStability = None, None
         boosterEndStability, sustainerMaxStability = 0, 0
         globalMaxStability = 0

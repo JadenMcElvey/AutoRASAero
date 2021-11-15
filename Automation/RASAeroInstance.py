@@ -1,4 +1,5 @@
 import keyboard
+import time
 
 from pywinauto.application import Application
 from enum import Enum
@@ -6,11 +7,13 @@ from enum import Enum
 class RocketSection(Enum):
     Sustainer = 0
     Booster = 1
+    NoseCone = 2
 
 class RASAeroInstance:
     def __init__(self):
         self.app = None
         self.mainWindow = None
+        self.clearField = ["backspace", "backspace", "backspace", "right", "right", "delete", "delete", "delete", "left"]
 
     def start(self):
         """
@@ -114,6 +117,54 @@ class RASAeroInstance:
             self.__repeatKeyboardInput("tab", 2)
         keyboard.send("enter")
 
+    def setBodyDiameter(self, diameter):
+        self.__getTubeWindow(RocketSection.NoseCone)
+        self.__repeatKeyboardInput("tab", 2)
+        self.__inputKeyboardSequence(self.clearField)
+        keyboard.write(str(diameter))
+        keyboard.send("shift+tab")
+        keyboard.send("enter")
+
+    def setTubeParameters(self, rocketSection, rootChord, span, tipChord, sweepDistance, tubeLength):
+        """
+        
+        """
+        tubeWindow = self.__getTubeWindow(rocketSection)
+        keyboard.send("enter")
+        
+        # Change root chord
+        self.__repeatKeyboardInput("tab", 3)
+        self.__inputKeyboardSequence(self.clearField)
+        keyboard.write(str(rootChord))
+        # Change sweep distance
+        self.__repeatKeyboardInput("tab", 3)
+        self.__inputKeyboardSequence(self.clearField)
+        keyboard.write(str(sweepDistance))
+        # Change tip chord
+        keyboard.send("tab")
+        self.__inputKeyboardSequence(self.clearField)
+        keyboard.write(str(tipChord))
+        # Change span
+        keyboard.send("tab")
+        self.__inputKeyboardSequence(self.clearField)
+        keyboard.write(str(span))
+        # Save fin parameters and close fin dialog
+        self.__repeatKeyboardInput("shift+tab", 8)
+        keyboard.send("enter")
+        # Set tube length and close tube dialog
+        if rocketSection == RocketSection.Sustainer:
+            self.__repeatKeyboardInput("shift+tab", 5)
+            self.__inputKeyboardSequence(self.clearField)
+            keyboard.write(str(tubeLength))
+            keyboard.send("shift+tab")
+        else:
+            pass
+            self.__repeatKeyboardInput("tab", 6)
+            self.__inputKeyboardSequence(self.clearField)
+            keyboard.write(str(tubeLength))
+            self.__repeatKeyboardInput("tab", 7)
+        keyboard.send("enter")
+
     def setIgnitionDelayAndExportFlightSimData(self, filePath, ignitionDelay):
         """
         Set the ignition delay then export to csv and return to the main window
@@ -156,6 +207,38 @@ class RASAeroInstance:
             keyboard.send("enter")
             return False
 
+    def exportAeroPlot(self, filePath, sustainerOnly):
+        self.mainWindow.ToolStrip1.Button7.click_input()
+        time.sleep(5)
+
+        if (not sustainerOnly):
+            time.sleep(10)
+            keyboard.send("shift+tab")
+            time.sleep(2)
+            """keyboard.send("shift+tab")
+            time.sleep(2)
+            keyboard.send("shift+tab")
+            time.sleep(2)
+            keyboard.send("shift+tab")
+            time.sleep(2)
+            keyboard.send("shift+tab")
+            time.sleep(2)
+            keyboard.send("shift+tab")
+            time.sleep(2)
+            keyboard.send("shift+tab")
+            time.sleep(2)
+            keyboard.send("shift+tab")
+            time.sleep(2)"""
+            keyboard.send("right")
+            time.sleep(5)
+
+        keyboard.send("alt+f")
+        keyboard.send("enter")
+        keyboard.send("enter")
+        keyboard.write(filePath)
+        keyboard.send("enter")
+        keyboard.send("alt+f4")
+
     def __getTubeWindow(self, rocketSection):
         window = None
 
@@ -165,6 +248,9 @@ class RASAeroInstance:
         elif (rocketSection == RocketSection.Booster):
             self.mainWindow.ListBox1.ListItem5.click_input(double=True)
             window = self.mainWindow.child_window(title="Booster", top_level_only=False)
+        elif (rocketSection == RocketSection.NoseCone):
+            self.mainWindow.ListBox1.ListItem1.click_input(double=True)
+            window = self.mainWindow.child_window(title="Nose Cone", top_level_only=False)
 
         return window
 
