@@ -136,8 +136,12 @@ class RASAeroInstance:
         self.__repeatKeyboardInput("tab", 3)
         self.__inputKeyboardSequence(self.clearField)
         keyboard.write(str(rootChord))
+        # Change fin distance from base
+        keyboard.send("tab")
+        self.__inputKeyboardSequence(self.clearField)
+        keyboard.write(str(rootChord + 1))
         # Change sweep distance
-        self.__repeatKeyboardInput("tab", 3)
+        self.__repeatKeyboardInput("tab", 2)
         self.__inputKeyboardSequence(self.clearField)
         keyboard.write(str(sweepDistance))
         # Change tip chord
@@ -212,23 +216,9 @@ class RASAeroInstance:
         time.sleep(5)
 
         if (not sustainerOnly):
-            time.sleep(10)
+            time.sleep(5)
             keyboard.send("shift+tab")
             time.sleep(2)
-            """keyboard.send("shift+tab")
-            time.sleep(2)
-            keyboard.send("shift+tab")
-            time.sleep(2)
-            keyboard.send("shift+tab")
-            time.sleep(2)
-            keyboard.send("shift+tab")
-            time.sleep(2)
-            keyboard.send("shift+tab")
-            time.sleep(2)
-            keyboard.send("shift+tab")
-            time.sleep(2)
-            keyboard.send("shift+tab")
-            time.sleep(2)"""
             keyboard.send("right")
             time.sleep(5)
 
