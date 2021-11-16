@@ -139,7 +139,7 @@ class RASAeroInstance:
         # Change fin distance from base
         keyboard.send("tab")
         self.__inputKeyboardSequence(self.clearField)
-        keyboard.write(str(rootChord + 1))
+        keyboard.write(str(rootChord + 1.5))
         # Change sweep distance
         self.__repeatKeyboardInput("tab", 2)
         self.__inputKeyboardSequence(self.clearField)
