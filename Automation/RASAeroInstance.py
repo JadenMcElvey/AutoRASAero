@@ -139,7 +139,10 @@ class RASAeroInstance:
         # Change fin distance from base
         keyboard.send("tab")
         self.__inputKeyboardSequence(self.clearField)
-        keyboard.write(str(rootChord + 1.5))
+        if (rocketSection == RocketSection.Sustainer):
+            keyboard.write(str(float(rootChord) + 2))
+        else:
+            keyboard.write(str(float(rootChord) + 1.5))
         # Change sweep distance
         self.__repeatKeyboardInput("tab", 2)
         self.__inputKeyboardSequence(self.clearField)
@@ -216,11 +219,10 @@ class RASAeroInstance:
         time.sleep(5)
 
         if (not sustainerOnly):
-            time.sleep(5)
             keyboard.send("shift+tab")
             time.sleep(2)
             keyboard.send("right")
-            time.sleep(5)
+            time.sleep(2)
 
         keyboard.send("alt+f")
         keyboard.send("enter")
