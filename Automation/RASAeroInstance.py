@@ -117,12 +117,19 @@ class RASAeroInstance:
             self.__repeatKeyboardInput("tab", 2)
         keyboard.send("enter")
 
-    def setBodyDiameter(self, diameter):
+    def setNoseParameters(self, diameterStr):
+        diameter = float(diameterStr)
+
         self.__getTubeWindow(RocketSection.NoseCone)
         self.__repeatKeyboardInput("tab", 2)
+        # Set nose cone diamater
         self.__inputKeyboardSequence(self.clearField)
         keyboard.write(str(diameter))
-        keyboard.send("shift+tab")
+        keyboard.send("tab")
+        # Set nose cone length
+        self.__inputKeyboardSequence(self.clearField)
+        keyboard.write(str(diameter * 6.0))
+        self.__repeatKeyboardInput("shift+tab", 2)
         keyboard.send("enter")
 
     def setTubeParameters(self, rocketSection, rootChord, span, tipChord, sweepDistance, tubeLength):
