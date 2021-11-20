@@ -84,7 +84,7 @@ class AutoRASAero:
 
     def runCDSimulations(self, bodyDiameter, bParams, sParams):
         # Set Parameters
-        AutoRASAero.RASAero.setBodyDiameter(bodyDiameter)
+        AutoRASAero.RASAero.setNoseParameters(bodyDiameter)
         AutoRASAero.RASAero.setTubeParameters(RASAeroInstance.RocketSection.Sustainer, sParams[0], sParams[1], sParams[2], sParams[3], sParams[4])
         time.sleep(5)
         AutoRASAero.RASAero.setTubeParameters(RASAeroInstance.RocketSection.Booster, bParams[0], bParams[1], bParams[2], bParams[3], bParams[4])
