@@ -110,7 +110,7 @@ class AutoRASAero:
         return (SCDPOff, SCDPOn, SBCDPOff, SBCDPOn)
 
     def getCDforMachValue(self, CDList, machValue):
-        roundedMachValue = round(machValue, 2)
+        roundedMachValue = round(float(machValue), 2)
         CDIndex = int((roundedMachValue * 100) - 1)
         return CDList[CDIndex]
 
