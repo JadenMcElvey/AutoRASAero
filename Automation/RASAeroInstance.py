@@ -242,10 +242,10 @@ class RASAeroInstance:
         window = None
 
         if (rocketSection == RocketSection.Sustainer):
-            self.mainWindow.ListBox1.ListItem4.click_input(double=True)
+            self.mainWindow.ListBox1.ListItem3.click_input(double=True)
             window = self.mainWindow.child_window(title="Body Tube", top_level_only=False)
         elif (rocketSection == RocketSection.Booster):
-            self.mainWindow.ListBox1.ListItem5.click_input(double=True)
+            self.mainWindow.ListBox1.ListItem4.click_input(double=True)
             window = self.mainWindow.child_window(title="Booster", top_level_only=False)
         elif (rocketSection == RocketSection.NoseCone):
             self.mainWindow.ListBox1.ListItem1.click_input(double=True)
