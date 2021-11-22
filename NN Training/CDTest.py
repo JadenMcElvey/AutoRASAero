@@ -24,7 +24,7 @@ file = open(csvFileName)
 reader = csv.reader(file)
 
 # Get to the correct starting row
-for i in range(STARTING_ROW - 1):
+for row in range(STARTING_ROW - 1):
     next(reader)
 
 # Create an object to run the simulations
@@ -33,8 +33,8 @@ finSim = AutoRASAero()
 finSim.setPaths(CDX1_FILE, ENG_FILE, csvPath)
 
 CDcsvList = []
-CDcsvList.append(["Tip B", "Root B", "Span B", "Sweep B", "Body Length B", "Body Diameter B+S", "Tip S", "Root S" ,"Span S" ,"Sweep S" ,"Body Length S", "Mach Number", "S Power Off", "S Power On", "B+S Power Off", "B+S Power On"])
-for i in range(ENDING_ROW - STARTING_ROW + 1):
+CDcsvList.append(["Row", "Tip B", "Root B", "Span B", "Sweep B", "Body Length B", "Body Diameter B+S", "Tip S", "Root S" ,"Span S" ,"Sweep S" ,"Body Length S", "Mach Number", "S Power Off", "S Power On", "B+S Power Off", "B+S Power On"])
+for row in range(ENDING_ROW - STARTING_ROW + 1):
     data = next(reader)
 
     # Choose the tube parameters to simulate
@@ -61,7 +61,7 @@ for i in range(ENDING_ROW - STARTING_ROW + 1):
     finSim.startupRASAero()
     # run the simulation and print the output
     result = finSim.runCDSimulations(bodyDiameter, tubeParams[0], tubeParams[1])
-    newCDValues = []
+    newCDValues = [row + STARTING_ROW]
     for inputValue in data:
         newCDValues.append(inputValue)
     newCDValues = newCDValues[:-4]
