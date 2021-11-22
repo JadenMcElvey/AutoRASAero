@@ -31,8 +31,11 @@ finSim = AutoRASAero()
 # Set the paths for the simulations
 finSim.setPaths(CDX1_FILE, ENG_FILE, csvPath)
 
-CDcsvList = []
-CDcsvList.append(["Row", "Tip B", "Root B", "Span B", "Sweep B", "Body Length B", "Body Diameter B+S", "Tip S", "Root S" ,"Span S" ,"Sweep S" ,"Body Length S", "Mach Number", "S Power Off", "S Power On", "B+S Power Off", "B+S Power On"])
+outputPath = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\NN Training\output.csv')))
+outputFile = open(outputPath, "w", newline='')
+writer = csv.writer(outputFile)
+writer.writerow(["Row", "Tip B", "Root B", "Span B", "Sweep B", "Body Length B", "Body Diameter B+S", "Tip S", "Root S" ,"Span S" ,"Sweep S" ,"Body Length S", "Mach Number", "S Power Off", "S Power On", "B+S Power Off", "B+S Power On"])
+
 for row in range(ENDING_ROW - STARTING_ROW + 1):
     data = next(reader)
 
@@ -68,16 +71,8 @@ for row in range(ENDING_ROW - STARTING_ROW + 1):
     newCDValues.append(finSim.getCDforMachValue(result[1], mach))
     newCDValues.append(finSim.getCDforMachValue(result[2], mach))
     newCDValues.append(finSim.getCDforMachValue(result[3], mach))
-    CDcsvList.append(newCDValues)
+    writer.writerow(newCDValues)
     # Close RASAero
     finSim.closeRASAero()
-
-outputPath = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\NN Training\output.csv')))
-outputFile = open(outputPath, "w", newline='')
-
-writer = csv.writer(outputFile)
-
-for outputPoint in CDcsvList:
-    writer.writerow(outputPoint)
         
 outputFile.close()
