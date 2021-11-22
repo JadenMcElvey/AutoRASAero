@@ -18,7 +18,6 @@ csvPath = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) + 
 
 csvFileName = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\NN Training\Mach Input D2 Hypercube 12000.jmp.csv')))
 csvFile = pathlib.Path(csvFileName)
-print(csvFile)
 
 file = open(csvFileName)
 reader = csv.reader(file)
