@@ -5,18 +5,20 @@ ENDING_ROW = 2
 import pathlib
 import sys
 import csv
+import os
 
 sys.path.append(".")
+sys.path.append("..")
 from Automation.AutoRASAero import AutoRASAero
 
 # Get paths for rocket files and where to save the csv
-cwd = str(pathlib.Path.cwd())
-CDX1_FILE = cwd + r"\Resources\MBS_43_A.CDX1"
-ENG_FILE = cwd + r"\Resources\PmotorRasp2.eng"
-csvPath = cwd + "\\Temp\\"
+CDX1_FILE = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\Resources\MBS_43_A.CDX1')))
+ENG_FILE = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\Resources\PmotorRasp2.eng')))
+csvPath = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))) + "\\Temp\\"
 
-csvFileName = cwd + "\\NN Training\\Mach Input D2 Hypercube 12000.jmp.csv"
+csvFileName = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\NN Training\Mach Input D2 Hypercube 12000.jmp.csv')))
 csvFile = pathlib.Path(csvFileName)
+print(csvFile)
 
 file = open(csvFileName)
 reader = csv.reader(file)
@@ -31,7 +33,7 @@ finSim = AutoRASAero()
 finSim.setPaths(CDX1_FILE, ENG_FILE, csvPath)
 
 CDcsvList = []
-CDcsvList.append(["S Power Off", "S Power On", "B+S Power Off", "B+S Power On"])
+CDcsvList.append(["Tip B", "Root B", "Span B", "Sweep B", "Body Length B", "Body Diameter B+S", "Tip S", "Root S" ,"Span S" ,"Sweep S" ,"Body Length S", "Mach Number", "S Power Off", "S Power On", "B+S Power Off", "B+S Power On"])
 for i in range(ENDING_ROW - STARTING_ROW + 1):
     data = next(reader)
 
@@ -60,6 +62,9 @@ for i in range(ENDING_ROW - STARTING_ROW + 1):
     # run the simulation and print the output
     result = finSim.runCDSimulations(bodyDiameter, tubeParams[0], tubeParams[1])
     newCDValues = []
+    for inputValue in data:
+        newCDValues.append(inputValue)
+    newCDValues = newCDValues[:-4]
     newCDValues.append(finSim.getCDforMachValue(result[0], mach))
     newCDValues.append(finSim.getCDforMachValue(result[1], mach))
     newCDValues.append(finSim.getCDforMachValue(result[2], mach))
@@ -68,7 +73,7 @@ for i in range(ENDING_ROW - STARTING_ROW + 1):
     # Close RASAero
     finSim.closeRASAero()
 
-outputPath = cwd + "\\NN Training\\output.csv"
+outputPath = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\NN Training\output.csv')))
 outputFile = open(outputPath, "w", newline='')
 
 writer = csv.writer(outputFile)
