@@ -3,24 +3,24 @@
   <RocketDesign>
     <NoseCone>
       <PartType>NoseCone</PartType>
-      <Length>x</Length>
-      <Diameter>6.17</Diameter>
-      <Shape>Von Karman Ogive</Shape>
-      <BluntRadius>0</BluntRadius>
+      <Length>500</Length>
+      <Diameter>notround</Diameter>
+      <Shape>50</Shape>
+      <BluntRadius>60</BluntRadius>
       <Location>0</Location>
-      <Color>Black</Color>
+      <Color>1000</Color>
     </NoseCone>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>17</Length>
-      <Diameter>6.17</Diameter>
+      <Length>10</Length>
+      <Diameter>20</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>34.5</Location>
-      <Color>Black</Color>
+      <Location>500</Location>
+      <Color>30</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <BoattailOffset>0</BoattailOffset>
@@ -28,28 +28,28 @@
     </BodyTube>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>66</Length>
-      <Diameter>6.17</Diameter>
+      <Length>40</Length>
+      <Diameter>red</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>51.5</Location>
-      <Color>Black</Color>
+      <Location>510</Location>
+      <Color>60</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <BoattailOffset>0</BoattailOffset>
       <Overhang>0</Overhang>
       <Fin>
         <Count>4</Count>
-        <Chord>15</Chord>
-        <Span>7</Span>
-        <SweepDistance>9</SweepDistance>
-        <TipChord>5</TipChord>
-        <Thickness>0.5</Thickness>
+        <Chord>70</Chord>
+        <Span>100</Span>
+        <SweepDistance>200</SweepDistance>
+        <TipChord>300</TipChord>
+        <Thickness>10</Thickness>
         <LERadius>0.5</LERadius>
-        <Location>17</Location>
+        <Location>90</Location>
         <AirfoilSection>Double Wedge</AirfoilSection>
         <FX1>1</FX1>
         <FX3>1</FX3>
@@ -57,29 +57,29 @@
     </BodyTube>
     <Booster>
       <PartType>Booster</PartType>
-      <Length>80.5</Length>
-      <Diameter>6.17</Diameter>
+      <Length>30</Length>
+      <Diameter>blue</Diameter>
       <InsideDiameter>6.17</InsideDiameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
-      <LaunchShoeArea>0</LaunchShoeArea>
+      <Location>550</Location>
       <Location>117.5</Location>
       <ShoulderLength>0</ShoulderLength>
-      <Color>Black</Color>
+      <Color>40</Color>
       <NozzleExitDiameter>0</NozzleExitDiameter>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <Fin>
         <Count>4</Count>
-        <Chord>15</Chord>
-        <Span>7</Span>
-        <SweepDistance>9</SweepDistance>
-        <TipChord>5</TipChord>
-        <Thickness>0.5</Thickness>
+        <Chord>100</Chord>
+        <Span>230</Span>
+        <SweepDistance>500</SweepDistance>
+        <TipChord>10</TipChord>
+        <Thickness>20</Thickness>
         <LERadius>0.5</LERadius>
-        <Location>17</Location>
+        <Location>30100</Location>
         <AirfoilSection>Double Wedge</AirfoilSection>
         <FX1>1</FX1>
         <FX3>1</FX3>
@@ -97,12 +97,12 @@
     <Comments />
   </RocketDesign>
   <LaunchSite>
-    <Altitude>2050</Altitude>
+    <Altitude>50</Altitude>
     <Pressure>0</Pressure>
     <RodAngle>0</RodAngle>
-    <RodLength>24</RodLength>
+    <RodLength>10</RodLength>
     <Temperature>90</Temperature>
-    <WindSpeed>0</WindSpeed>
+    <WindSpeed>100</WindSpeed>
   </LaunchSite>
   <Recovery>
     <Altitude1>1000</Altitude1>

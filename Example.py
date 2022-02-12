@@ -1,6 +1,5 @@
 import pathlib
 import pandas as pd
-from openpyxl import load_workbook
 from mbsEditor import mbsEditor
 
 from Automation.AutoRASAero import AutoRASAero
@@ -12,41 +11,42 @@ df = xl.parse('Run')
 for i in range(df.shape[0]):
     # call mbsEditor with rocket data
     mbsEditor(
-        df.loc[i, 0],
-        df.loc[i, 1],
-        df.loc[i, 2],
-        df.loc[i, 3],
-        df.loc[i, 4],
-        df.loc[i, 5],
-        df.loc[i, 6],
-        df.loc[i, 7],
-        df.loc[i, 8],
-        df.loc[i, 9],
-        df.loc[i, 10],
-        df.loc[i, 11],
-        df.loc[i, 12],
-        df.loc[i, 13],
-        df.loc[i, 14],
-        df.loc[i, 15],
-        df.loc[i, 16],
-        df.loc[i, 17],
-        df.loc[i, 18],
-        df.loc[i, 19],
-        df.loc[i, 20],
-        df.loc[i, 21],
-        df.loc[i, 22],
-        df.loc[i, 23],
-        df.loc[i, 24],
-        df.loc[i, 25],
-        df.loc[i, 26],
-        df.loc[i, 27],
-        df.loc[i, 28],
+        df.iloc[i, 0],
+        df.iloc[i, 1],
+        df.iloc[i, 2],
+        df.iloc[i, 3],
+        df.iloc[i, 4],
+        df.iloc[i, 5],
+        df.iloc[i, 6],
+        df.iloc[i, 7],
+        df.iloc[i, 8],
+        df.iloc[i, 9],
+        df.iloc[i, 10],
+        df.iloc[i, 11],
+        df.iloc[i, 12],
+        df.iloc[i, 13],
+        df.iloc[i, 14],
+        df.iloc[i, 15],
+        df.iloc[i, 16],
+        df.iloc[i, 17],
+        df.iloc[i, 18],
+        df.iloc[i, 19],
+        df.iloc[i, 20],
+        df.iloc[i, 21],
+        df.iloc[i, 22],
+        df.iloc[i, 23],
+        df.iloc[i, 24],
+        df.iloc[i, 25],
+        df.iloc[i, 26],
+        df.iloc[i, 27],
+        df.iloc[i, 28],
     )
+
 
 # Get paths for rocket files and where to save the csv
 cwd = str(pathlib.Path.cwd())
 # CDX1_FILE = cwd + r"\Resources\MBS_43_A.CDX1"
-CDX1_FILE = cwd + r"\Resources\MBSTemplate2.txt"
+CDX1_FILE = cwd + r"\Resources\MBSTemplate2.CDX1"
 ENG_FILE = cwd + r"\Resources\PmotorRasp2.eng"
 csvPath = cwd + "\\Temp\\"
 
