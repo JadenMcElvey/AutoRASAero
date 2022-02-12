@@ -1,6 +1,5 @@
 # mbsFile = open(r'C:\Users\Alex\Desktop\Code\Gatech\RocketClub\AutoRASAero\Resources\MBSTemplate.txt')
-mbsFile2 = open(
-    r'C:\Users\Alex\Desktop\Code\Gatech\RocketClub\AutoRASAero\Resources\MBSTemplate2.txt', 'r')
+mbsFile2 = open(r'C:\Users\Alex\Desktop\Code\Gatech\RocketClub\AutoRASAero\Resources\MBSTemplate2.txt', 'r')
 
 lineList = mbsFile2.readlines()
 
@@ -70,9 +69,40 @@ def mbsEditor(noseConeLength, noseConeDiameter, noseConeShape, noseConeBluntRadi
     lineList[104] = '    <WindSpeed>' + \
         str(windSpeed) + '</WindSpeed>\n'
 
+obj = {
+    'noseConeLength': 0,
+    'noseConeDiameter': 0,
+    'noseConeShape': 0,
+    'noseConeBluntRadius': 0,
+    'noseConeColor': 0,
+    'bodyTubeLength': 0,
+    'bodyTubeDiameter': 0,
+    'bodyTubeColor': 0,
+    'bodyTubeLength2': 0,
+    'bodyTubeDiameter2': 0,
+    'bodyTubeColor2': 0,
+    'finChord': 0,
+    'finSpan': 0,
+    'finSweepDistance': 0,
+    'finTipChord': 0,
+    'finThickness': 0,
+    'finLocation': 0,
+    'boosterLength': 0,
+    'boosterDiameter': 0,
+    'boosterColor': 0,
+    'finChord2': 0,
+    'finSpan2': 0,
+    'finSweepDistance2': 0,
+    'finTipChord2': 0,
+    'finThickness2': 0,
+    'finLocation2': 0,
+    'altitude': 0,
+    'rodLength': 0,
+    'windSpeed': 0
+}
 
 
-mbsEditor(3000, 500, 'round', 50, 60, 1000, 10, 20, 30, 40, 'red', 60, 70, 100, 200, 300, 10, 20, 30, 'blue', 40, 100, 230, 500, 10, 20, 30000, 50, 100)
+mbsEditor(50000, 500, 'notround', 50, 60, 1000, 10, 20, 30, 40, 'red', 60, 70, 100, 200, 300, 10, 20, 30, 'blue', 40, 100, 230, 500, 10, 20, 30000, 50, 100)
 mbsFile2 = open(
     r'C:\Users\Alex\Desktop\Code\Gatech\RocketClub\AutoRASAero\Resources\MBSTemplate2.txt', 'w')
 mbsFile2.writelines(lineList)

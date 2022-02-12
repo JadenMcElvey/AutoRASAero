@@ -72,8 +72,6 @@ class AutoRASAero:
                 global min stability, global max stability, apogee) or None if the flight simulation
                 fails 
         """
-        AutoRASAero.RASAero.setFinParameters(RASAeroInstance.RocketSection.Sustainer, sFinParams[0], sFinParams[1], sFinParams[2], sFinParams[3])
-        AutoRASAero.RASAero.setFinParameters(RASAeroInstance.RocketSection.Booster, bFinParams[0], bFinParams[1], bFinParams[2], bFinParams[3])
         boosterStr = "B_" + "_".join([str(x) for x in bFinParams])
         sustainerStr = "_S_" + "_".join([str(x) for x in sFinParams])
         csvFileName = AutoRASAero.csv_path + "Fin_" + boosterStr + sustainerStr + ".csv"
@@ -82,12 +80,9 @@ class AutoRASAero:
         else:
             return None
 
-    def runCDSimulations(self, bodyDiameter, bParams, sParams):
+    def runCDSimulations(self, bParams, sParams):
         # Set Parameters
-        AutoRASAero.RASAero.setNoseParameters(bodyDiameter)
-        AutoRASAero.RASAero.setTubeParameters(RASAeroInstance.RocketSection.Sustainer, sParams[0], sParams[1], sParams[2], sParams[3], sParams[4])
         time.sleep(5)
-        AutoRASAero.RASAero.setTubeParameters(RASAeroInstance.RocketSection.Booster, bParams[0], bParams[1], bParams[2], bParams[3], bParams[4])
         time.sleep(5)
 
         # Output Sustainer Only Info(and wait for completion)
