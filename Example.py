@@ -41,7 +41,9 @@ for i in range(df.shape[0]):
         df.iloc[i, 27],
         df.iloc[i, 28],
     )
-
+# Now the rocket data is in the MBSTemplate.txt file
+# (I plan on moving everything below into the for loop so when there
+# are multiple lines of rocket data, it will run them all)
 
 # Get paths for rocket files and where to save the csv
 cwd = str(pathlib.Path.cwd())
