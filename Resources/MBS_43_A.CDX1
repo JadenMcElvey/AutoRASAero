@@ -8,7 +8,7 @@
       <Shape>Von Karman Ogive</Shape>
       <BluntRadius>0</BluntRadius>
       <Location>0</Location>
-      <Color>Black</Color>
+      <Color>#FFFFFF</Color>
     </NoseCone>
     <BodyTube>
       <PartType>BodyTube</PartType>
@@ -20,7 +20,7 @@
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
       <Location>34.5</Location>
-      <Color>Black</Color>
+      <Color>MediumSlateBlue</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <BoattailOffset>0</BoattailOffset>
@@ -35,8 +35,8 @@
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>51.5</Location>
-      <Color>Black</Color>
+      <Location>69</Location>
+      <Color>HotPink</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
       <BoattailOffset>0</BoattailOffset>
@@ -49,7 +49,7 @@
         <TipChord>5</TipChord>
         <Thickness>0.5</Thickness>
         <LERadius>0.5</LERadius>
-        <Location>17</Location>
+        <Location>-69</Location>
         <AirfoilSection>Double Wedge</AirfoilSection>
         <FX1>1</FX1>
         <FX3>1</FX3>
@@ -67,7 +67,7 @@
       <LaunchShoeArea>0</LaunchShoeArea>
       <Location>117.5</Location>
       <ShoulderLength>0</ShoulderLength>
-      <Color>Black</Color>
+      <Color>MediumSlateBlue</Color>
       <NozzleExitDiameter>0</NozzleExitDiameter>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>

@@ -12,7 +12,7 @@ csvPath = cwd + "\\Temp\\"
 # First tuple is the parameters for the booster
 # Second tuple is the parameters for the sustainer
 # Fin parameters are in formar (root chord, span, tip chord, sweep)
-finParams = [(16,7,4,10), (16,7,4,10)]
+finParams = [(17,7.2,12,10), (17,7.2,12,10)]
 # Create an object to run the simulations
 finSim = AutoRASAero()
 # Set the paths for the simulations
