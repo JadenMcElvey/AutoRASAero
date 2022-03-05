@@ -1,6 +1,6 @@
 import pathlib
 import pandas as pd
-from mbsEditor import mbsEditor
+from Automation.mbsEditor import mbsEditor
 
 from Automation.AutoRASAero import AutoRASAero
 
@@ -8,42 +8,41 @@ from Automation.AutoRASAero import AutoRASAero
 xl = pd.ExcelFile('MBSExample.xlsx')
 df = xl.parse('Run')
 
+
 for i in range(df.shape[0]):
-    # call mbsEditor with rocket data
-    mbsEditor(
-        df.iloc[i, 0],
-        df.iloc[i, 1],
-        df.iloc[i, 2],
-        df.iloc[i, 3],
-        df.iloc[i, 4],
-        df.iloc[i, 5],
-        df.iloc[i, 6],
-        df.iloc[i, 7],
-        df.iloc[i, 8],
-        df.iloc[i, 9],
-        df.iloc[i, 10],
-        df.iloc[i, 11],
-        df.iloc[i, 12],
-        df.iloc[i, 13],
-        df.iloc[i, 14],
-        df.iloc[i, 15],
-        df.iloc[i, 16],
-        df.iloc[i, 17],
-        df.iloc[i, 18],
-        df.iloc[i, 19],
-        df.iloc[i, 20],
-        df.iloc[i, 21],
-        df.iloc[i, 22],
-        df.iloc[i, 23],
-        df.iloc[i, 24],
-        df.iloc[i, 25],
-        df.iloc[i, 26],
-        df.iloc[i, 27],
-        df.iloc[i, 28],
-    )
-# Now the rocket data is in the MBSTemplate.txt file
-# (I plan on moving everything below into the for loop so when there
-# are multiple lines of rocket data, it will run them all)
+    rocketDict = {
+        'noseConeLength': df['noseConeLength'][i],
+        'noseConeDiameter': df['noseConeDiameter'][i],
+        'noseConeShape': df['noseConeShape'][i],
+        'noseConeBluntRadius': df['noseConeBluntRadius'][i],
+        'noseConeColor': df['noseConeColor'][i],
+        'bodyTubeLength': df['bodyTubeLength'][i],
+        'bodyTubeDiameter': df['bodyTubeDiameter'][i],
+        'bodyTubeColor': df['bodyTubeColor'][i],
+        'bodyTubeLength2': df['bodyTubeLength2'][i],
+        'bodyTubeDiameter2': df['bodyTubeDiameter2'][i],
+        'bodyTubeColor2': df['bodyTubeColor2'][i],
+        'finChord': df['finChord'][i],
+        'finSpan': df['finSpan'][i],
+        'finSweepDistance': df['finSweepDistance'][i],
+        'finTipChord': df['finTipChord'][i],
+        'finThickness': df['finThickness'][i],
+        'finLocation': df['finLocation'][i],
+        'boosterLength': df['boosterLength'][i],
+        'boosterDiameter': df['boosterDiameter'][i],
+        'boosterColor': df['boosterColor'][i],
+        'finChord2': df['finChord2'][i],
+        'finSpan2': df['finSpan2'][i],
+        'finSweepDistance2': df['finSweepDistance2'][i],
+        'finTipChord2': df['finTipChord2'][i],
+        'finThickness2': df['finThickness2'][i],
+        'finLocation2': df['finLocation2'][i],
+        'altitude': df['altitude'][i],
+        'rodLength': df['rodLength'][i],
+        'windSpeed': df['windSpeed'][i]
+    }
+
+    mbsEditor(rocketDict)
 
 # Get paths for rocket files and where to save the csv
 cwd = str(pathlib.Path.cwd())
@@ -56,7 +55,7 @@ csvPath = cwd + "\\Temp\\"
 # First tuple is the parameters for the booster
 # Second tuple is the parameters for the sustainer
 # Fin parameters are in formar (root chord, span, tip chord, sweep)
-finParams = [(16,7,4,10), (16,7,4,10)]
+finParams = [(17, 7.2, 12, 10), (17, 7.2, 12, 10)]
 # Create an object to run the simulations
 finSim = AutoRASAero()
 # Set the paths for the simulations
