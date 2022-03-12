@@ -1,6 +1,6 @@
 <RASAeroDocument>
   <FileVersion>2</FileVersion>
-    <RocketDesign>
+  <RocketDesign>
     <NoseCone>
       <PartType>NoseCone</PartType>
       <Length>34.5</Length>
@@ -64,7 +64,7 @@
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
-      <Location>117.5</Location>
+      <LaunchShoeArea>0</LaunchShoeArea>
       <Location>117.5</Location>
       <ShoulderLength>0</ShoulderLength>
       <Color>Black</Color>

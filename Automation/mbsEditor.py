@@ -45,7 +45,7 @@ def mbsEditor(rocketDict):
         str(rocketDict['boosterLength']) + '</Length>\n'
     lineList[60] = '      <Diameter>' + \
         str(rocketDict['boosterDiameter']) + '</Diameter>\n'
-    lineList[66] = '      <Location>' + \
+    lineList[67] = '      <Location>' + \
         str(rocketDict['noseConeLength'] + rocketDict['bodyTubeLength'] + rocketDict['bodyTubeLength2']) + '</Location>\n'
     lineList[69] = '      <Color>' + \
         str(rocketDict['boosterColor']) + '</Color>\n'
