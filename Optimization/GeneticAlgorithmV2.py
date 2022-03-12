@@ -221,7 +221,8 @@ while len(gen) < 20:
 
 # Get paths for rocket files and where to save the csv
 cwd = str(pathlib.Path.cwd().parent)
-CDX1_FILE = cwd + r"\Resources\MBS_43.CDX1"
+# CDX1_FILE = cwd + r"\Resources\MBS_43.CDX1"
+CDX1_FILE = cwd + r"\Resources\MBSTemplate2.CDX1"
 ENG_FILE = cwd + r"\Resources\TCIMC3_(9899.7771)_5_5_2.329_11.0789_2.eng"
 csvPath = cwd + "\\Temp\\"
 
