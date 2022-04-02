@@ -1,6 +1,7 @@
 import pathlib
 import pandas as pd
 from Automation.mbsEditor import mbsEditor
+# import xlsxwriter
 
 from Automation.AutoRASAero import AutoRASAero
 
@@ -8,12 +9,13 @@ from Automation.AutoRASAero import AutoRASAero
 # xl = pd.ExcelFile('MBSExample.xlsx')
 xl = pd.ExcelFile('Mach Input D2 Hypercube 12000.jmp.xlsx')
 df = xl.parse('Mach Input D2 Hypercube 12000.j')
-xl2 = pd.ExcelFile('simulationResults.xlsx')
-df2 = xl2.parse('Sheet1')
+
+simsPath = 'simulationResults.xlsx'
+# workbook = xlsxwriter.Workbook('simulationResults.xlsx')
+# worksheet = workbook.add_worksheet()
 
 
 for i in range(df.shape[0]):
-    row = 0
     # rocketDict = {
     #     'noseConeLength': df['noseConeLength'][i],
     #     'noseConeDiameter': df['noseConeDiameter'][i],
@@ -47,7 +49,7 @@ for i in range(df.shape[0]):
     # }
 
     rocketDict = {
-        'noseConeLength': 34.5,
+        'noseConeLength': 6.17*6,
         'noseConeDiameter': 6.17,
         'noseConeShape': 'Von Karman Ogive',
         'noseConeBluntRadius': 0,
@@ -59,18 +61,18 @@ for i in range(df.shape[0]):
         'bodyTubeDiameter2': df['Body Diameter B+S'][i],
         'bodyTubeColor2': 'Black',
         'finChord': 15,
-        'finSpan': df['Span B'][i],
-        'finSweepDistance': df['Sweep B'][i],
-        'finTipChord': df['Tip B'][i],
+        'finSpan': df['Span S'][i],
+        'finSweepDistance': df['Sweep S'][i],
+        'finTipChord': df['Tip S'][i],
         'finThickness': 0.5,
         'finLocation': 17,
         'boosterLength': 80.5,
         'boosterDiameter': df['Body Diameter B+S'][i],
         'boosterColor': 'Black',
         'finChord2': 15,
-        'finSpan2': df['Span S'][i],
-        'finSweepDistance2': df['Sweep S'][i],
-        'finTipChord2': df['Tip S'][i],
+        'finSpan2': df['Span B'][i],
+        'finSweepDistance2': df['Sweep B'][i],
+        'finTipChord2': df['Tip B'][i],
         'finThickness2': 0.5,
         'finLocation2': 17,
         'altitude': 2050,
@@ -79,40 +81,58 @@ for i in range(df.shape[0]):
     }
     try:
         mbsEditor(rocketDict)
+        print(i)
+        if i == 10:
+            break
     except:
-        print('Error')
+        print('Error on row {}'.format(i))
+        break
 
     # once everything works, replace row with i
 
-    # df.drop(df.index[row], inplace=True)
+    # df.drop(df.index[i], inplace=True)
     # above line will delete the row   
 
     # all the code outside the loop should be here.
 
-    # df2.loc[row] = [result[0], result[1], result[2], result[3], result[4], result[5], result[6]]
+    resultsList = [rocketDict['noseConeLength'], rocketDict['noseConeDiameter'], rocketDict['noseConeShape'], rocketDict['noseConeBluntRadius'], rocketDict['noseConeColor'], rocketDict['bodyTubeLength'], rocketDict['bodyTubeDiameter']]
+    # we want to write the list to an excel file
+    df2 = pd.DataFrame(resultsList, columns=['noseConeLength', 'noseConeDiameter', 'noseConeShape', 'noseConeBluntRadius', 'noseConeColor', 'bodyTubeLength', 'bodyTubeDiameter'], index=[i])
+    with pd.ExcelWriter(simsPath, engine='openpyxl') as writer:
+        df2.to_excel(writer, sheet_name='Sheet1', index=False)
+        writer.save()
+    
 
-    row += 1
+    # worksheet.write(i, 0, rocketDict['noseConeLength'])
+    # worksheet.write(i, 1, rocketDict['noseConeDiameter'])
+    # worksheet.write(i, 2, rocketDict['noseConeShape'])
+    # worksheet.write(i, 3, rocketDict['noseConeBluntRadius'])
+    # worksheet.write(i, 4, rocketDict['noseConeColor'])
+    # worksheet.write(i, 5, rocketDict['bodyTubeLength'])
+    # worksheet.write(i, 6, rocketDict['bodyTubeDiameter'])
 
-# Get paths for rocket files and where to save the csv
-cwd = str(pathlib.Path.cwd())
-# CDX1_FILE = cwd + r"\Resources\MBS_43_A.CDX1"
-CDX1_FILE = cwd + r"\Resources\MBSTemplate2.CDX1"
-ENG_FILE = cwd + r"\Resources\PmotorRasp2.eng"
-csvPath = cwd + "\\Temp\\"
 
-# Choose the fin parameters to simulate
-# First tuple is the parameters for the booster
-# Second tuple is the parameters for the sustainer
-# Fin parameters are in formar (root chord, span, tip chord, sweep)
-finParams = [(17, 7.2, 12, 10), (17, 7.2, 12, 10)]
-# Create an object to run the simulations
-finSim = AutoRASAero()
-# Set the paths for the simulations
-finSim.setPaths(CDX1_FILE, ENG_FILE, csvPath)
-# Start RASAero
-finSim.startupRASAero()
-# run the simulation and print the output
-result = finSim.runStabilitySimulation(finParams[0], finParams[1], 6)
-print(result)
-# Close RASAero
-finSim.closeRASAero()
+
+# # Get paths for rocket files and where to save the csv
+# cwd = str(pathlib.Path.cwd())
+# # CDX1_FILE = cwd + r"\Resources\MBS_43_A.CDX1"
+# CDX1_FILE = cwd + r"\Resources\MBSTemplate2.CDX1"
+# ENG_FILE = cwd + r"\Resources\PmotorRasp2.eng"
+# csvPath = cwd + "\\Temp\\"
+
+# # Choose the fin parameters to simulate
+# # First tuple is the parameters for the booster
+# # Second tuple is the parameters for the sustainer
+# # Fin parameters are in formar (root chord, span, tip chord, sweep)
+# finParams = [(17, 7.2, 12, 10), (17, 7.2, 12, 10)]
+# # Create an object to run the simulations
+# finSim = AutoRASAero()
+# # Set the paths for the simulations
+# finSim.setPaths(CDX1_FILE, ENG_FILE, csvPath)
+# # Start RASAero
+# finSim.startupRASAero()
+# # run the simulation and print the output
+# result = finSim.runStabilitySimulation(finParams[0], finParams[1], 6)
+# print(result)
+# # Close RASAero
+# finSim.closeRASAero()
