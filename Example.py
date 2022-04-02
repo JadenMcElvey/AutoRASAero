@@ -5,44 +5,93 @@ from Automation.mbsEditor import mbsEditor
 from Automation.AutoRASAero import AutoRASAero
 
 # grab new rocket data from excel file
-xl = pd.ExcelFile('MBSExample.xlsx')
-df = xl.parse('Run')
+# xl = pd.ExcelFile('MBSExample.xlsx')
+xl = pd.ExcelFile('Mach Input D2 Hypercube 12000.jmp.xlsx')
+df = xl.parse('Mach Input D2 Hypercube 12000.j')
+xl2 = pd.ExcelFile('simulationResults.xlsx')
+df2 = xl2.parse('Sheet1')
 
 
 for i in range(df.shape[0]):
-    rocketDict = {
-        'noseConeLength': df['noseConeLength'][i],
-        'noseConeDiameter': df['noseConeDiameter'][i],
-        'noseConeShape': df['noseConeShape'][i],
-        'noseConeBluntRadius': df['noseConeBluntRadius'][i],
-        'noseConeColor': df['noseConeColor'][i],
-        'bodyTubeLength': df['bodyTubeLength'][i],
-        'bodyTubeDiameter': df['bodyTubeDiameter'][i],
-        'bodyTubeColor': df['bodyTubeColor'][i],
-        'bodyTubeLength2': df['bodyTubeLength2'][i],
-        'bodyTubeDiameter2': df['bodyTubeDiameter2'][i],
-        'bodyTubeColor2': df['bodyTubeColor2'][i],
-        'finChord': df['finChord'][i],
-        'finSpan': df['finSpan'][i],
-        'finSweepDistance': df['finSweepDistance'][i],
-        'finTipChord': df['finTipChord'][i],
-        'finThickness': df['finThickness'][i],
-        'finLocation': df['finLocation'][i],
-        'boosterLength': df['boosterLength'][i],
-        'boosterDiameter': df['boosterDiameter'][i],
-        'boosterColor': df['boosterColor'][i],
-        'finChord2': df['finChord2'][i],
-        'finSpan2': df['finSpan2'][i],
-        'finSweepDistance2': df['finSweepDistance2'][i],
-        'finTipChord2': df['finTipChord2'][i],
-        'finThickness2': df['finThickness2'][i],
-        'finLocation2': df['finLocation2'][i],
-        'altitude': df['altitude'][i],
-        'rodLength': df['rodLength'][i],
-        'windSpeed': df['windSpeed'][i]
-    }
+    row = 0
+    # rocketDict = {
+    #     'noseConeLength': df['noseConeLength'][i],
+    #     'noseConeDiameter': df['noseConeDiameter'][i],
+    #     'noseConeShape': df['noseConeShape'][i],
+    #     'noseConeBluntRadius': df['noseConeBluntRadius'][i],
+    #     'noseConeColor': df['noseConeColor'][i],
+    #     'bodyTubeLength': df['bodyTubeLength'][i],
+    #     'bodyTubeDiameter': df['bodyTubeDiameter'][i],
+    #     'bodyTubeColor': df['bodyTubeColor'][i],
+    #     'bodyTubeLength2': df['bodyTubeLength2'][i],
+    #     'bodyTubeDiameter2': df['bodyTubeDiameter2'][i],
+    #     'bodyTubeColor2': df['bodyTubeColor2'][i],
+    #     'finChord': df['finChord'][i],
+    #     'finSpan': df['finSpan'][i],
+    #     'finSweepDistance': df['finSweepDistance'][i],
+    #     'finTipChord': df['finTipChord'][i],
+    #     'finThickness': df['finThickness'][i],
+    #     'finLocation': df['finLocation'][i],
+    #     'boosterLength': df['boosterLength'][i],
+    #     'boosterDiameter': df['boosterDiameter'][i],
+    #     'boosterColor': df['boosterColor'][i],
+    #     'finChord2': df['finChord2'][i],
+    #     'finSpan2': df['finSpan2'][i],
+    #     'finSweepDistance2': df['finSweepDistance2'][i],
+    #     'finTipChord2': df['finTipChord2'][i],
+    #     'finThickness2': df['finThickness2'][i],
+    #     'finLocation2': df['finLocation2'][i],
+    #     'altitude': df['altitude'][i],
+    #     'rodLength': df['rodLength'][i],
+    #     'windSpeed': df['windSpeed'][i]
+    # }
 
-    mbsEditor(rocketDict)
+    rocketDict = {
+        'noseConeLength': 34.5,
+        'noseConeDiameter': 6.17,
+        'noseConeShape': 'Von Karman Ogive',
+        'noseConeBluntRadius': 0,
+        'noseConeColor': 'Black',
+        'bodyTubeLength': df['Body Length B'][i],
+        'bodyTubeDiameter': df['Body Diameter B+S'][i],
+        'bodyTubeColor': 'Black',
+        'bodyTubeLength2': df['Body Length S'][i],
+        'bodyTubeDiameter2': df['Body Diameter B+S'][i],
+        'bodyTubeColor2': 'Black',
+        'finChord': 15,
+        'finSpan': df['Span B'][i],
+        'finSweepDistance': df['Sweep B'][i],
+        'finTipChord': df['Tip B'][i],
+        'finThickness': 0.5,
+        'finLocation': 17,
+        'boosterLength': 80.5,
+        'boosterDiameter': df['Body Diameter B+S'][i],
+        'boosterColor': 'Black',
+        'finChord2': 15,
+        'finSpan2': df['Span S'][i],
+        'finSweepDistance2': df['Sweep S'][i],
+        'finTipChord2': df['Tip S'][i],
+        'finThickness2': 0.5,
+        'finLocation2': 17,
+        'altitude': 2050,
+        'rodLength': 24,
+        'windSpeed': df['Mach Number'][i],
+    }
+    try:
+        mbsEditor(rocketDict)
+    except:
+        print('Error')
+
+    # once everything works, replace row with i
+
+    # df.drop(df.index[row], inplace=True)
+    # above line will delete the row   
+
+    # all the code outside the loop should be here.
+
+    # df2.loc[row] = [result[0], result[1], result[2], result[3], result[4], result[5], result[6]]
+
+    row += 1
 
 # Get paths for rocket files and where to save the csv
 cwd = str(pathlib.Path.cwd())
