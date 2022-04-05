@@ -3,7 +3,7 @@
   <RocketDesign>
     <NoseCone>
       <PartType>NoseCone</PartType>
-      <Length>37.019999999999996</Length>
+      <Length>34.5</Length>
       <Diameter>6.17</Diameter>
       <Shape>Von Karman Ogive</Shape>
       <BluntRadius>0</BluntRadius>
@@ -12,14 +12,14 @@
     </NoseCone>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>160.32794399533293</Length>
-      <Diameter>17.082256854737896</Diameter>
+      <Length>17</Length>
+      <Diameter>6.17</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>37.019999999999996</Location>
+      <Location>34.5</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -28,14 +28,14 @@
     </BodyTube>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>188.9990832569381</Length>
-      <Diameter>17.082256854737896</Diameter>
+      <Length>66</Length>
+      <Diameter>6.17</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>197.3479439953329</Location>
+      <Location>51.5</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -44,12 +44,12 @@
       <Fin>
         <Count>4</Count>
         <Chord>15</Chord>
-        <Span>10.85182098508209</Span>
-        <SweepDistance>12.692724393699475</SweepDistance>
-        <TipChord>12.592549379114928</TipChord>
+        <Span>7</Span>
+        <SweepDistance>9</SweepDistance>
+        <TipChord>5</TipChord>
         <Thickness>0.5</Thickness>
         <LERadius>0.5</LERadius>
-        <Location>32</Location>
+        <Location>17</Location>
         <AirfoilSection>Double Wedge</AirfoilSection>
         <FX1>1</FX1>
         <FX3>1</FX3>
@@ -58,14 +58,14 @@
     <Booster>
       <PartType>Booster</PartType>
       <Length>80.5</Length>
-      <Diameter>17.082256854737896</Diameter>
+      <Diameter>6.17</Diameter>
       <InsideDiameter>6.17</InsideDiameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>386.347027252271</Location>
+      <Location>117.5</Location>
       <ShoulderLength>0</ShoulderLength>
       <Color>Black</Color>
       <NozzleExitDiameter>0</NozzleExitDiameter>
@@ -74,12 +74,12 @@
       <Fin>
         <Count>4</Count>
         <Chord>15</Chord>
-        <Span>7.9417451454287855</Span>
-        <SweepDistance>17.819818318193185</SweepDistance>
-        <TipChord>9.805650470872573</TipChord>
+        <Span>7</Span>
+        <SweepDistance>9</SweepDistance>
+        <TipChord>5</TipChord>
         <Thickness>0.5</Thickness>
         <LERadius>0.5</LERadius>
-        <Location>32</Location>
+        <Location>17</Location>
         <AirfoilSection>Double Wedge</AirfoilSection>
         <FX1>1</FX1>
         <FX3>1</FX3>
@@ -102,7 +102,7 @@
     <RodAngle>0</RodAngle>
     <RodLength>24</RodLength>
     <Temperature>90</Temperature>
-    <WindSpeed>8.244853737811484</WindSpeed>
+    <WindSpeed>0</WindSpeed>
   </LaunchSite>
   <Recovery>
     <Altitude1>1000</Altitude1>
