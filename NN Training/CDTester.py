@@ -76,3 +76,10 @@ for row in range(ENDING_ROW - STARTING_ROW + 1):
     finSim.closeRASAero()
         
 outputFile.close()
+
+# add two more columns for CP sustainer + booster and CP sustainer
+# remove clicker functions for useless functions
+# replaec the template file
+# use 100 mach number (random data points between 0 and 6) for each row
+
+# data is in AeroPlots
