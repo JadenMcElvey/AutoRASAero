@@ -34,10 +34,11 @@ finSim.setPaths(CDX1_FILE, ENG_FILE, csvPath)
 outputPath = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\NN Training\output.csv')))
 outputFile = open(outputPath, "w", newline='')
 writer = csv.writer(outputFile)
-writer.writerow(["Row", "Tip B", "Root B", "Span B", "Sweep B", "Body Length B", "Body Diameter B+S", "Tip S", "Root S" ,"Span S" ,"Sweep S" ,"Body Length S", "Mach Number", "S Power Off", "S Power On", "B+S Power Off", "B+S Power On"])
+writer.writerow(["Row", "Tip B", "Root B", "Span B", "Sweep B", "Body Length B", "Body Diameter B+S", "Tip S", "Root S" ,"Span S" ,"Sweep S" ,"Body Length S", "Mach Number", "S Power Off", "S Power On", "B+S Power Off", "B+S Power On", "CP S", "CP B+S"])
 
 for row in range(ENDING_ROW - STARTING_ROW + 1):
     data = next(reader)
+    print(data)
 
     # Choose the tube parameters to simulate
     # First tuple is the parameters for the booster
@@ -62,17 +63,29 @@ for row in range(ENDING_ROW - STARTING_ROW + 1):
     # Start RASAero
     finSim.startupRASAero()
     # run the simulation and print the output
-    result = finSim.runCDSimulations(bodyDiameter, tubeParams[0], tubeParams[1])
+    # result = finSim.runCDSimulations(bodyDiameter, tubeParams[0], tubeParams[1])
+    result = finSim.runCDSimulations(tubeParams[0], tubeParams[1])
     newCDValues = [row + STARTING_ROW]
     for inputValue in data:
         newCDValues.append(inputValue)
-    newCDValues = newCDValues[:-4]
+    newCDValues = newCDValues[:-6]
     newCDValues.append(finSim.getCDforMachValue(result[0], mach))
     newCDValues.append(finSim.getCDforMachValue(result[1], mach))
     newCDValues.append(finSim.getCDforMachValue(result[2], mach))
     newCDValues.append(finSim.getCDforMachValue(result[3], mach))
+    newCDValues.append(finSim.getCDforMachValue(result[4], mach))
+    newCDValues.append(finSim.getCDforMachValue(result[5], mach))
     writer.writerow(newCDValues)
     # Close RASAero
     finSim.closeRASAero()
         
 outputFile.close()
+
+# add two more columns for CP sustainer + booster and CP sustainer * Complete
+# remove clicker functions for useless functions * Complete
+# replaec the template file
+# use 100 mach number (random data points between 0 and 6) for each row
+
+# Figure out why it only runs the first row
+
+# data is in AeroPlots

@@ -99,10 +99,10 @@ class AutoRASAero:
         time.sleep(5)
         
         # Read Exported CSV
-        SCDPOff, SCDPOn = self.__parseCDCSV(ScsvFileName)
-        SBCDPOff, SBCDPOn = self.__parseCDCSV(SBcsvFileName)
+        SCDPOff, SCDPOn, SCPTotal = self.__parseCDCSV(ScsvFileName)
+        SBCDPOff, SBCDPOn, SBCPTotal = self.__parseCDCSV(SBcsvFileName)
 
-        return (SCDPOff, SCDPOn, SBCDPOff, SBCDPOn)
+        return (SCDPOff, SCDPOn, SBCDPOff, SBCDPOn, SCPTotal, SBCPTotal)
 
     def getCDforMachValue(self, CDList, machValue):
         roundedMachValue = round(float(machValue), 2)
@@ -112,6 +112,7 @@ class AutoRASAero:
     def __parseCDCSV(self, csvFileName):
         CDPOff = []
         CDPOn = []
+        CPtotal = []
 
         csvFile = pathlib.Path(csvFileName)
         while not csvFile.is_file():
@@ -125,8 +126,9 @@ class AutoRASAero:
         for row in reader:
             CDPOff.append(row[3])
             CDPOn.append(row[4])
+            CPtotal.append(row[12])
 
-        return CDPOff, CDPOn
+        return CDPOff, CDPOn, CPtotal
 
     def __parseStabilityCSV(self, csvFileName):
         boosterStartStability, sustainerStartStability = None, None
