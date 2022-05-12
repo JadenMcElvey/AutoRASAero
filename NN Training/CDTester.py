@@ -1,6 +1,6 @@
 # Simulations will be run for all values in the spreadsheet from STARTING_ROW to ENDING_ROW inclusive
 STARTING_ROW = 2
-ENDING_ROW = 2
+ENDING_ROW = 8
 
 import pathlib
 import sys
@@ -31,7 +31,7 @@ finSim = AutoRASAero()
 # Set the paths for the simulations
 finSim.setPaths(CDX1_FILE, ENG_FILE, csvPath)
 
-outputPath = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\NN Training\output.csv')))
+outputPath = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\NN Training\outputTest2.csv')))
 outputFile = open(outputPath, "w", newline='')
 writer = csv.writer(outputFile)
 writer.writerow(["Row", "Tip B", "Root B", "Span B", "Sweep B", "Body Length B", "Body Diameter B+S", "Tip S", "Root S" ,"Span S" ,"Sweep S" ,"Body Length S", "Mach Number", "S Power Off", "S Power On", "B+S Power Off", "B+S Power On", "CP S", "CP B+S"])
@@ -59,23 +59,28 @@ for row in range(ENDING_ROW - STARTING_ROW + 1):
     tubeParams = [boosterParams, sustainerParams]
     # Get the body diameter and mach value
     bodyDiameter = data[5]
-    mach = data[11]
+    # mach = data[11] old mach number
+    
     # Start RASAero
     finSim.startupRASAero()
     # run the simulation and print the output
     # result = finSim.runCDSimulations(bodyDiameter, tubeParams[0], tubeParams[1])
     result = finSim.runCDSimulations(tubeParams[0], tubeParams[1])
     newCDValues = [row + STARTING_ROW]
-    for inputValue in data:
-        newCDValues.append(inputValue)
-    newCDValues = newCDValues[:-6]
-    newCDValues.append(finSim.getCDforMachValue(result[0], mach))
-    newCDValues.append(finSim.getCDforMachValue(result[1], mach))
-    newCDValues.append(finSim.getCDforMachValue(result[2], mach))
-    newCDValues.append(finSim.getCDforMachValue(result[3], mach))
-    newCDValues.append(finSim.getCDforMachValue(result[4], mach))
-    newCDValues.append(finSim.getCDforMachValue(result[5], mach))
-    writer.writerow(newCDValues)
+    mach = 0.1
+    while mach < 6:
+        for inputValue in data:
+            newCDValues.append(inputValue)
+        newCDValues = newCDValues[:-6]
+        newCDValues.append(finSim.getCDforMachValue(result[0], mach))
+        newCDValues.append(finSim.getCDforMachValue(result[1], mach))
+        newCDValues.append(finSim.getCDforMachValue(result[2], mach))
+        newCDValues.append(finSim.getCDforMachValue(result[3], mach))
+        newCDValues.append(finSim.getCDforMachValue(result[4], mach))
+        newCDValues.append(finSim.getCDforMachValue(result[5], mach))
+        writer.writerow(newCDValues)
+        newCDValues = [row + STARTING_ROW]
+        mach += 0.1
     # Close RASAero
     finSim.closeRASAero()
         
@@ -83,8 +88,8 @@ outputFile.close()
 
 # add two more columns for CP sustainer + booster and CP sustainer * Complete
 # remove clicker functions for useless functions * Complete
-# replaec the template file
-# use 100 mach number (random data points between 0 and 6) for each row
+# replace the template file
+# use 100 mach number (random data points between 0 and 6) for each row * Complete (more or less, fix the issues)
 
 # Figure out why it only runs the first row
 
