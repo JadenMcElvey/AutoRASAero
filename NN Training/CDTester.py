@@ -1,6 +1,6 @@
 # Simulations will be run for all values in the spreadsheet from STARTING_ROW to ENDING_ROW inclusive
 STARTING_ROW = 2
-ENDING_ROW = 3
+ENDING_ROW = 12001
 
 import pathlib
 import sys
@@ -36,15 +36,6 @@ outputPath = str(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\\NN
 outputFile = open(outputPath, "w", newline='')
 writer = csv.writer(outputFile)
 writer.writerow(["Row", "Tip B", "Root B", "Span B", "Sweep B", "Body Length B", "Body Diameter B+S", "Tip S", "Root S" ,"Span S" ,"Sweep S" ,"Body Length S", "Mach Number", "S Power Off", "S Power On", "B+S Power Off", "B+S Power On", "CP S", "CP B+S"])
-
-
-# the new output paths for TESTING
-# create outputPath2 that creates a new csv file called results.csv
-outputPath2 = '.\\NN Training\\results.csv'
-outputFile2 = open(outputPath2, "w", newline='')
-writer2 = csv.writer(outputFile2)
-
-
 
 for row in range(ENDING_ROW - STARTING_ROW + 1):
     data = next(reader)
@@ -103,7 +94,7 @@ for row in range(ENDING_ROW - STARTING_ROW + 1):
         'finLocation2': 17,
         'altitude': 2050,
         'rodLength': 24,
-        'windSpeed': 1, # Don't know what to do here, was mach number but can't do that anymore
+        'windSpeed': 0,
     }
 
     mbsEditor(rocketDict)
@@ -117,9 +108,6 @@ for row in range(ENDING_ROW - STARTING_ROW + 1):
     # run the simulation and print the output
     # result = finSim.runCDSimulations(bodyDiameter, tubeParams[0], tubeParams[1])
     result = finSim.runCDSimulations(tubeParams[0], tubeParams[1])
-    # print(result[0])
-    # add results[0] to the second csv file
-    writer2.writerow(result[0])
 
     newCDValues = [row + STARTING_ROW]
     mach = 0.1
