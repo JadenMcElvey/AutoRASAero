@@ -12,8 +12,8 @@
     </NoseCone>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>142.01141761813486</Length>
-      <Diameter>16.12967747312276</Diameter>
+      <Length>142.0114176</Length>
+      <Diameter>16.12967747</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
@@ -28,14 +28,14 @@
     </BodyTube>
     <BodyTube>
       <PartType>BodyTube</PartType>
-      <Length>103.46695557963163</Length>
-      <Diameter>16.12967747312276</Diameter>
+      <Length>103.4669556</Length>
+      <Diameter>16.12967747</Diameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>179.03141761813487</Location>
+      <Location>179.0314176</Location>
       <Color>Black</Color>
       <BoattailLength>0</BoattailLength>
       <BoattailRearDiameter>0</BoattailRearDiameter>
@@ -44,9 +44,9 @@
       <Fin>
         <Count>4</Count>
         <Chord>15</Chord>
-        <Span>4.704392032669389</Span>
-        <SweepDistance>9.520793399449953</SweepDistance>
-        <TipChord>7.804150345862156</TipChord>
+        <Span>4.704392033</Span>
+        <SweepDistance>9.520793399</SweepDistance>
+        <TipChord>7.804150346</TipChord>
         <Thickness>0.5</Thickness>
         <LERadius>0.5</LERadius>
         <Location>32</Location>
@@ -58,14 +58,14 @@
     <Booster>
       <PartType>Booster</PartType>
       <Length>80.5</Length>
-      <Diameter>16.12967747312276</Diameter>
+      <Diameter>16.12967747</Diameter>
       <InsideDiameter>6.17</InsideDiameter>
       <LaunchLugDiameter>0</LaunchLugDiameter>
       <LaunchLugLength>0</LaunchLugLength>
       <RailGuideDiameter>0</RailGuideDiameter>
       <RailGuideHeight>0</RailGuideHeight>
       <LaunchShoeArea>0</LaunchShoeArea>
-      <Location>282.4983731977665</Location>
+      <Location>282.4983732</Location>
       <ShoulderLength>0</ShoulderLength>
       <Color>Black</Color>
       <NozzleExitDiameter>0</NozzleExitDiameter>
@@ -74,9 +74,9 @@
       <Fin>
         <Count>4</Count>
         <Chord>15</Chord>
-        <Span>13.997083090257522</Span>
-        <SweepDistance>5.855487957329778</SweepDistance>
-        <TipChord>16.468872406033835</TipChord>
+        <Span>13.99708309</Span>
+        <SweepDistance>5.855487957</SweepDistance>
+        <TipChord>16.46887241</TipChord>
         <Thickness>0.5</Thickness>
         <LERadius>0.5</LERadius>
         <Location>32</Location>
@@ -102,7 +102,7 @@
     <RodAngle>0</RodAngle>
     <RodLength>24</RodLength>
     <Temperature>90</Temperature>
-    <WindSpeed>8.787398949912493</WindSpeed>
+    <WindSpeed>1</WindSpeed>
   </LaunchSite>
   <Recovery>
     <Altitude1>1000</Altitude1>

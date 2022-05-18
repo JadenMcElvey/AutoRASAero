@@ -107,6 +107,7 @@ class AutoRASAero:
     def getCDforMachValue(self, CDList, machValue):
         roundedMachValue = round(float(machValue), 2)
         CDIndex = int((roundedMachValue * 100) - 1)
+        print(CDList[CDIndex])
         return CDList[CDIndex]
 
     def __parseCDCSV(self, csvFileName):
