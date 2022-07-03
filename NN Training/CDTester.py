@@ -67,23 +67,20 @@ for row in range(ENDING_ROW - STARTING_ROW + 1):
 
     rocketDict = {
         'noseConeLength': 6.17*6,
-        'noseConeDiameter': 6.17,
+        'noseConeDiameter': float(bodyDiameterBS),
+        'noseConeColor': 'Black',
         'noseConeShape': 'Von Karman Ogive',
         'noseConeBluntRadius': 0,
-        'noseConeColor': 'Black',
-        'bodyTubeLength': float(bodyLengthB),
+        'bodyTubeLength': float(bodyLengthS),
         'bodyTubeDiameter': float(bodyDiameterBS),
         'bodyTubeColor': 'Black',
-        'bodyTubeLength2': float(bodyLengthS),
-        'bodyTubeDiameter2': float(bodyDiameterBS),
-        'bodyTubeColor2': 'Black',
         'finChord': 15,
         'finSpan': float(spanS),
         'finSweepDistance': float(sweepS),
         'finTipChord': float(tipS),
         'finThickness': 0.5,
         'finLocation': 17,
-        'boosterLength': 80.5,
+        'boosterLength': float(bodyLengthB),
         'boosterDiameter': float(bodyDiameterBS),
         'boosterColor': 'Black',
         'finChord2': 15,
@@ -125,10 +122,9 @@ for row in range(ENDING_ROW - STARTING_ROW + 1):
         writer.writerow(newCDValues)
         newCDValues = [row + STARTING_ROW]
         mach += 0.1
-    # del data <-- do this to delete the row
     # Close RASAero
     finSim.closeRASAero()
-        
+
 outputFile.close()
 
 # add two more columns for CP sustainer + booster and CP sustainer * Complete
